@@ -2,417 +2,518 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>İyiliğin Geleceği | Sınır Tanımayan Galaksi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>İyiliğin Geleceği | Kozmik Gönüllülük Galaksisi</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600;800&family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- Tasarım Değişkenleri (Space-Zen Paleti) --- */
         :root {
-            --bg-deep: #020205;
-            --nebula-glow: #7d5fff;
-            --gold-leaf: #efb810;
-            --zen-white: #f8f9fa;
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --card-gradient: linear-gradient(165deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.01) 100%);
+            --bg-deep: #030308;
+            --nebula-glow: #8e44ad; /* Daha derin bir mor */
+            --nebula-light: #a29bfe;
+            --gold-leaf: #d4af37;
+            --zen-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-gradient: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
+            --space-font: 'Syncopate', sans-serif;
+            --body-font: 'Outfit', sans-serif;
         }
 
-        /* --- Reset & 9:16 Fix --- */
+        /* --- Scrollbar Customization --- */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-leaf); border-radius: 10px; }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
+            cursor: none; /* Özel cursor için */
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
+        body {
             background-color: var(--bg-deep);
             color: var(--zen-white);
-            font-family: 'Outfit', sans-serif;
+            font-family: var(--body-font);
             overflow-x: hidden;
-            /* Android cihazlarda tam ekran deneyimi için scroll snap eklenebilir ama mobil rahatlığı için serbest bıraktım */
+            line-height: 1.6;
         }
 
-        /* --- Dinamik Arka Plan (Yıldız Tozu) --- */
+        /* --- Custom Cursor --- */
+        #custom-cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--gold-leaf);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            box-shadow: 0 0 20px var(--gold-leaf);
+        }
+        
+        #cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--nebula-light);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.2s ease-out;
+        }
+
+        /* --- Background Effects --- */
         #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            top: 0;
+            left: 0;
+        }
+
+        .nebula-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(142, 68, 173, 0.1), transparent 70%);
             z-index: 1;
             pointer-events: none;
         }
 
-        /* --- Floating Astronaut (Gelişmiş Animasyon) --- */
+        /* --- Astronaut & Cosmic Elements --- */
         .astro-container {
             position: fixed;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
             z-index: 2;
-            pointer-events: none; /* Altındaki butonlara tıklanabilsin diye */
+            pointer-events: none;
         }
 
         .floating-astro {
             position: absolute;
-            width: 180px;
-            filter: drop-shadow(0 0 20px rgba(125, 95, 255, 0.4));
-            animation: cosmicFloat 25s linear infinite; /* Hem dönecek hem gezecek */
+            width: 220px;
+            opacity: 0.7;
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.2));
+            animation: cosmicVoyage 40s linear infinite;
         }
 
-        @keyframes cosmicFloat {
-            0% { top: 10%; left: -20%; transform: rotate(0deg); }
-            25% { top: 40%; left: 50%; transform: rotate(90deg); }
-            50% { top: 80%; left: 10%; transform: rotate(180deg); }
-            75% { top: 30%; left: 70%; transform: rotate(270deg); }
-            100% { top: 10%; left: -20%; transform: rotate(360deg); }
+        @keyframes cosmicVoyage {
+            0% { transform: translate(-20vw, 10vh) rotate(0deg); }
+            25% { transform: translate(50vw, 40vh) rotate(90deg); }
+            50% { transform: translate(90vw, 70vh) rotate(180deg); }
+            75% { transform: translate(30vw, 30vh) rotate(270deg); }
+            100% { transform: translate(-20vw, 10vh) rotate(360deg); }
         }
 
-        /* --- Navbar (Glassmorphism) --- */
+        /* --- Navigation --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 15px 20px;
-            z-index: 100;
-            background: rgba(2, 2, 5, 0.7);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--glass-border);
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
+            background: rgba(3, 3, 8, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        .logo-wrap {
+        .logo-box {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .logo-wrap img {
-            width: 38px;
-            height: 38px;
+        .logo-box img {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--gold-leaf);
+            padding: 2px;
             border-radius: 50%;
-            border: 1.5px solid var(--gold-leaf);
+            transition: 0.5s;
         }
 
-        .logo-wrap span {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            background: linear-gradient(to right, #fff, var(--gold-leaf));
+        .logo-box:hover img {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 0 20px var(--gold-leaf);
+        }
+
+        .logo-text {
+            font-family: var(--space-font);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- Hero Section (9:16 Portrait Focus) --- */
-        section {
+        /* --- Hero Section --- */
+        .hero {
             position: relative;
-            z-index: 3;
-            padding: 100px 25px 40px;
-        }
-
-        .hero-text {
-            height: 80vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            text-align: left;
+            align-items: flex-start;
+            padding: 0 10%;
+            z-index: 10;
         }
 
-        .pre-title {
-            color: var(--gold-leaf);
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-leaf);
+            border-radius: 50px;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.75rem;
-            margin-bottom: 15px;
+            letter-spacing: 3px;
+            color: var(--gold-leaf);
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            font-family: var(--body-font);
+        }
+
+        .hero h1 span {
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--zen-white);
+        }
+
+        .hero p {
+            max-width: 500px;
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.7);
+            border-left: 3px solid var(--gold-leaf);
+            padding-left: 25px;
+        }
+
+        /* --- Content Blocks --- */
+        .section-container {
+            position: relative;
+            z-index: 10;
+            padding: 100px 5%;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 60px 40px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 100px;
+            transition: 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--nebula-light);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .ihh-accent {
+            color: #2ecc71; /* IHH'nın yeşiline zarif bir gönderme */
             font-weight: 600;
         }
 
-        .hero-text h1 {
-            font-size: 3.2rem;
-            line-height: 0.95;
-            margin-bottom: 25px;
-            font-weight: 800;
+        /* --- Feature Grid --- */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
 
-        .hero-text p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            font-weight: 300;
-            max-width: 90%;
-            border-left: 2px solid var(--nebula-glow);
-            padding-left: 15px;
-        }
-
-        /* --- Scroll Indicator --- */
-        .scroll-hint {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            opacity: 0.5;
-        }
-
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} }
-
-        /* --- Biz Kimiz Card --- */
-        .about-box {
-            background: var(--card-gradient);
+        .feature-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
             border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 40px 30px;
-            margin: 40px 0;
+            padding: 40px;
+            border-radius: 30px;
             position: relative;
             overflow: hidden;
+            transition: 0.5s;
         }
 
-        .about-box::after {
-            content: '"';
+        .feature-card::before {
+            content: '';
             position: absolute;
-            right: 20px;
-            bottom: -20px;
-            font-size: 10rem;
-            color: rgba(255,255,255,0.05);
-            font-family: serif;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(142, 68, 173, 0.1) 0%, transparent 70%);
+            transition: 0.5s;
         }
 
-        .about-box h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--gold-leaf);
+        .feature-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--gold-leaf);
         }
 
-        /* --- Kategoriler (Estetik Kartlar) --- */
-        .category-title {
-            margin: 60px 0 30px;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1.2rem;
+        .feature-card i {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Cinematic Form --- */
+        .cosmic-form {
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .card-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .card-item {
-            background: var(--card-gradient);
-            border: 1px solid var(--glass-border);
-            padding: 30px;
-            border-radius: 30px;
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            transition: 0.4s;
-        }
-
-        .icon-circle {
-            min-width: 60px;
-            height: 60px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: rgba(125, 95, 255, 0.15);
-            color: var(--nebula-glow);
-            border: 1px solid rgba(125, 95, 255, 0.3);
-        }
-
-        .card-content h3 {
-            margin-bottom: 8px;
-            font-size: 1.4rem;
-            color: var(--zen-white);
-        }
-
-        .card-content p {
-            font-size: 0.95rem;
-            opacity: 0.6;
-            line-height: 1.5;
-        }
-
-        /* --- Fikir Formu --- */
-        .form-container {
-            padding: 40px 0 100px;
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
         }
 
         .cosmic-input {
             width: 100%;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            padding: 20px;
-            border-radius: 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--glass-border);
+            padding: 15px 0;
             color: white;
-            margin-bottom: 20px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
+            font-size: 1.2rem;
+            font-family: var(--body-font);
+            transition: 0.3s;
         }
 
         .cosmic-input:focus {
             outline: none;
-            border-color: var(--nebula-glow);
-            background: rgba(125, 95, 255, 0.05);
+            border-color: var(--gold-leaf);
         }
 
-        .submit-btn {
-            width: 100%;
-            padding: 22px;
-            border-radius: 20px;
+        .submit-trigger {
+            background: var(--accent-gradient);
+            color: var(--bg-deep);
             border: none;
-            background: linear-gradient(90deg, var(--nebula-glow), #a29bfe);
-            color: white;
+            padding: 20px 60px;
+            border-radius: 50px;
             font-weight: 800;
-            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 15px 30px rgba(125, 95, 255, 0.4);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 30px;
+        }
+
+        .submit-trigger:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
         }
 
         /* --- Footer --- */
         footer {
-            padding: 50px 25px;
+            padding: 80px 5% 40px;
+            background: linear-gradient(to top, #0a0a15, transparent);
             text-align: center;
-            background: rgba(0,0,0,0.5);
-            border-top: 1px solid var(--glass-border);
+            z-index: 10;
+            position: relative;
         }
 
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 30px;
-            font-size: 1.5rem;
+        .social-link {
+            font-size: 1.8rem;
+            color: var(--zen-white);
+            margin: 0 20px;
+            transition: 0.3s;
         }
 
-        .social-icons i { color: var(--gold-leaf); }
+        .social-link:hover {
+            color: var(--gold-leaf);
+            transform: translateY(-5px);
+        }
 
-        /* --- Android 9:16 Özel Ayar --- */
-        @media screen and (max-aspect-ratio: 9/16) {
-            .hero-text h1 { font-size: 3.5rem; }
+        .footer-line {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--glass-border), transparent);
+            margin: 40px 0;
+        }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .hero { padding: 0 5%; }
+            .hero h1 { font-size: 3.5rem; }
+            .floating-astro { width: 150px; }
+            .glass-card { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
+    <div id="custom-cursor"></div>
+    <div id="cursor-follower"></div>
+
     <div id="particles-js"></div>
+    <div class="nebula-overlay"></div>
 
     <div class="astro-container">
-        <img src="https://img1.picmix.com/output/stamp/normal/0/8/4/5/1585480_8e5cc.gif" class="floating-astro" alt="Astro">
+        <img src="https://img1.picmix.com/output/stamp/normal/0/8/4/5/1585480_8e5cc.gif" class="floating-astro" alt="Kozmik Gönüllü">
     </div>
 
     <nav>
-        <div class="logo-wrap">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s&ec=121585071" alt="Logo">
-            <span>İyiliğin Geleceği</span>
+        <div class="logo-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" alt="IHH Logo">
+            <div class="logo-text">İYİLİĞİN GELECEĞİ</div>
         </div>
-        <div class="menu-trigger"><i class="fa-solid fa-bahai" style="color: var(--gold-leaf);"></i></div>
+        <div class="menu-icon"><i class="fa-solid fa-ellipsis-vertical" style="color: var(--gold-leaf);"></i></div>
     </nav>
 
-    <section class="hero-text container">
-        <div class="pre-title" data-aos="fade-right">Kozmik Gönüllülük Hareketi</div>
-        <h1 data-aos="fade-up" data-aos-delay="200">NE OLURSAN OL,<br><span style="color: var(--nebula-glow);">YİNE GEL.</span></h1>
-        <p data-aos="fade-up" data-aos-delay="400">Biz, yıldız tozundan yapılmış varlıklarız ve birbirimize yardım etmek, evrenin kendi kendini iyileştirme biçimidir.</p>
-        
-        <div class="scroll-hint">
-            <i class="fa-solid fa-chevron-down"></i>
-        </div>
-    </section>
+    <main>
+        <section class="hero">
+            <div class="hero-badge" data-aos="fade-down">Sınır Tanımayan İyilik Hareketi</div>
+            <h1 data-aos="fade-right" data-aos-delay="200">
+                GÖKTE BİR YILDIZ,<br>
+                <span>YERDE BİR EL.</span>
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="400">
+                Bizler, evrenin vicdanı olmak için bir araya gelmiş "İyiliğin Geleceği" gönüllüleriyiz. Bir çocuğun tebessümünde galaksileri keşfediyoruz.
+            </p>
+        </section>
 
-    <section class="container">
-        <div class="about-box" data-aos="zoom-in">
-            <h2>Biz Kimiz?</h2>
-            <p style="font-weight: 300; line-height: 1.8;">"İyiliğin Geleceği" sadece bir kulüp değil; modern bir dergah, dijital bir meclis, sınırsız bir galaksidir. İHH'nın insani yardım mirasından aldığımız güçle, üniversite kampüslerini birer 'iyilik istasyonuna' dönüştürüyoruz. <br><br><strong>Felsefemiz net:</strong> Hiçbir ayrım yapmadan, sadece yaratılanı Yaratan'dan ötürü severek hizmet etmek.</p>
-        </div>
-
-        <div class="category-title" data-aos="fade-up">Hizmet Kapıları</div>
-
-        <div class="card-stack">
-            <div class="card-item" data-aos="fade-left">
-                <div class="icon-circle"><i class="fa-solid fa-leaf"></i></div>
-                <div class="card-content">
-                    <h3>Can Nefesi</h3>
-                    <p>Tabiatın ve sessiz dostlarımızın emanetçisiyiz. Tohumdan patiye, her cana bir dokunuş.</p>
-                </div>
+        <section class="section-container">
+            <div class="glass-card" data-aos="zoom-in-up">
+                <h2 style="font-family: var(--space-font); color: var(--gold-leaf); margin-bottom: 30px;">MANIFESTO</h2>
+                <p style="font-size: 1.3rem; font-weight: 300; max-width: 800px;">
+                    <span class="ihh-accent">IHH İnsani Yardım Vakfı</span>'nın köklü çınarının gölgesinde, kampüslerden dünyaya uzanan bir iyilik köprüsü kuruyoruz. Bizim için mesafe sadece bir sayı, renk sadece bir ton, dil sadece bir sestir. <br><br>
+                    <strong>Hedefimiz:</strong> Modern çağın yalnızlaştırdığı ruhları, "Halka hizmet, Hakk'a hizmettir" düsturuyla birleştirmek.
+                </p>
             </div>
 
-            <div class="card-item" data-aos="fade-right">
-                <div class="icon-circle"><i class="fa-solid fa-mug-hot"></i></div>
-                <div class="card-content">
-                    <h3>Sofra Birliği</h3>
-                    <p>Kampüs kantininden kütüphane sıralarına; askıda ne varsa, kardeşlikle paylaşılır.</p>
+            <div class="feature-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    <h3>Yetim Güneşi</h3>
+                    <p>Dünyanın tüm yetimleri bizim kardeşimizdir. Onların eğitiminden hayallerine kadar her adımda yanlarındayız.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-solid fa-droplet"></i>
+                    <h3>Hayat Suyu</h3>
+                    <p>Kuruyan topraklara, çatlamış dudaklara bir damla umut olmak için teknoloji ve gönüllülüğü birleştiriyoruz.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa-solid fa-brain"></i>
+                    <h3>Akıl ve İrfan</h3>
+                    <p>Sadece ekmek değil, fikir de paylaşıyoruz. Okuma halkaları ve stratejik projelerle geleceği inşa ediyoruz.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fa-solid fa-earth-americas"></i>
+                    <h3>Ekolojik Denge</h3>
+                    <p>Emanet olan doğayı koruyor, "Yarın kıyamet kopacağını bilseniz bile elinizdeki fidanı dikin" diyen bir medeniyetin izini sürüyoruz.</p>
                 </div>
             </div>
+        </section>
 
-            <div class="card-item" data-aos="fade-left">
-                <div class="icon-circle"><i class="fa-solid fa-palette"></i></div>
-                <div class="card-content">
-                    <h3>İrfan Sanat</h3>
-                    <p>Geleneksel sanatlar ve modern projelerle iyiliği estetikle buluşturuyoruz.</p>
-                </div>
+        <section class="section-container">
+            <div class="cosmic-form" data-aos="fade-up">
+                <h2 style="font-family: var(--space-font); margin-bottom: 20px;">YILDIZINI SEÇ</h2>
+                <p style="opacity: 0.6; margin-bottom: 50px;">Kendi iyilik yörüngeni oluşturmaya hazır mısın?</p>
+                
+                <form id="iyilikForm">
+                    <div class="input-group">
+                        <input type="text" class="cosmic-input" placeholder="İsminiz / Gönül Mahlasınız" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" class="cosmic-input" placeholder="Kozmik İletişim (E-posta)" required>
+                    </div>
+                    <div class="input-group">
+                        <textarea class="cosmic-input" rows="4" placeholder="Hangi iyilik hayaliyle yanıyorsun?"></textarea>
+                    </div>
+                    <button type="submit" class="submit-trigger">Işığı Yaymaya Başla</button>
+                </form>
             </div>
-
-            <div class="card-item" data-aos="fade-right">
-                <div class="icon-circle"><i class="fa-solid fa-shield-cat"></i></div>
-                <div class="card-content">
-                    <h3>Öncü Yürekler</h3>
-                    <p>Acil yardım ve saha tecrübesiyle, dünyanın neresinde bir sızı varsa oraya ilk koşanlar.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-container">
-            <div class="category-title" data-aos="fade-up">İlhamını Paylaş</div>
-            <p style="text-align: center; opacity: 0.6; margin-bottom: 30px;">"Bende bir fikir var ama..." deme. Sen gel, fikrinle gel.</p>
-            
-            <form data-aos="fade-up">
-                <input type="text" class="cosmic-input" placeholder="Adın / Gönül İsmin">
-                <textarea class="cosmic-input" rows="5" placeholder="Hayalindeki iyilik projesi nedir?"></textarea>
-                <button type="button" class="submit-btn">Işığı Başlat</button>
-            </form>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-x-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
+        <div class="social-box">
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-x-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
         </div>
-        <p style="letter-spacing: 2px; font-size: 0.7rem; color: var(--gold-leaf); margin-bottom: 10px;">İHH KAMPÜS | İYİLİĞİN GELECEĞİ</p>
-        <p style="opacity: 0.4;">2026 - Gönüllülük Sınır Tanımaz.</p>
+        <div class="footer-line"></div>
+        <p style="letter-spacing: 5px; font-weight: 700; color: var(--gold-leaf);">İHH KAMPÜS | 2026</p>
+        <p style="opacity: 0.4; font-size: 0.8rem; margin-top: 15px;">Bu bir iyilik galaksisidir. Tüm hakları vicdana aittir.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
     <script>
-        AOS.init({ duration: 1200, once: true });
+        // AOS Başlatma
+        AOS.init({ duration: 1500, once: false, mirror: true });
 
-        /* Starfield Effect */
+        // Custom Cursor Logic
+        const cursor = document.getElementById('custom-cursor');
+        const follower = document.getElementById('cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            setTimeout(() => {
+                follower.style.transform = `translate(${e.clientX - 15}px, ${e.clientY - 15}px)`;
+            }, 50);
+        });
+
+        // Hover Effect for Cursor
+        const interactiveElements = document.querySelectorAll('button, a, .feature-card, .cosmic-input');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                follower.style.transform += ' scale(2)';
+                follower.style.borderColor = 'var(--gold-leaf)';
+            });
+            el.addEventListener('mouseleave', () => {
+                follower.style.transform = follower.style.transform.replace(' scale(2)', '');
+                follower.style.borderColor = 'var(--nebula-light)';
+            });
+        });
+
+        // Particles Configuration (Optimize Edilmiş)
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#ffffff" },
+                "number": { "value": 120, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": ["#ffffff", "#d4af37", "#8e44ad"] },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
+                "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
                 "size": { "value": 2, "random": true },
-                "line_linked": { "enable": false },
-                "move": { "enable": true, "speed": 0.4, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.05, "width": 1 },
+                "move": { "enable": true, "speed": 0.6, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
             },
             "interactivity": {
-                "events": { "onhover": { "enable": true, "mode": "bubble" } },
-                "modes": { "bubble": { "distance": 100, "size": 4, "duration": 2, "opacity": 0.8 } }
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.2 } } }
             }
+        });
+
+        // Form Submission Simulation
+        document.getElementById('iyilikForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            btn.innerHTML = "IŞIK GÖNDERİLİYOR...";
+            setTimeout(() => {
+                btn.innerHTML = "EVRENE ULAŞTI! ✨";
+                btn.style.background = "#2ecc71";
+                this.reset();
+            }, 2000);
         });
     </script>
 </body>
