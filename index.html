@@ -3,517 +3,669 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>İyiliğin Geleceği | Kozmik Gönüllülük Galaksisi</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>İyiliğin Geleceği | Galaktik Gönüllü Platformu</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600;800&family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Syncopate:wght@700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        /* --- CSS DEĞİŞKENLERİ (Kozmik Palet) --- */
         :root {
-            --bg-deep: #030308;
-            --nebula-glow: #8e44ad; /* Daha derin bir mor */
-            --nebula-light: #a29bfe;
-            --gold-leaf: #d4af37;
-            --zen-white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --accent-gradient: linear-gradient(135deg, #d4af37 0%, #f1c40f 100%);
-            --space-font: 'Syncopate', sans-serif;
-            --body-font: 'Outfit', sans-serif;
+            --bg-dark: #05050a;
+            --bg-card: #0d0d16;
+            --primary-gold: #f1c40f;
+            --primary-purple: #8e44ad;
+            --accent-green: #2ecc71;
+            --accent-blue: #3498db;
+            --text-main: #ffffff;
+            --text-muted: #a0a0b0;
+            --glass-white: rgba(255, 255, 255, 0.08);
+            --safe-area-top: env(safe-area-inset-top);
+            --safe-area-bottom: env(safe-area-inset-bottom);
         }
 
-        /* --- Scrollbar Customization --- */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-leaf); border-radius: 10px; }
-
+        /* --- TEMEL RESET & APP AYARLARI --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Özel cursor için */
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
-        body {
-            background-color: var(--bg-deep);
-            color: var(--zen-white);
-            font-family: var(--body-font);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* --- Custom Cursor --- */
-        #custom-cursor {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--gold-leaf);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-            box-shadow: 0 0 20px var(--gold-leaf);
-        }
-        
-        #cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--nebula-light);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transition: all 0.2s ease-out;
-        }
-
-        /* --- Background Effects --- */
-        #particles-js {
-            position: fixed;
+        html, body {
             width: 100%;
             height: 100%;
-            z-index: 0;
-            top: 0;
-            left: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden; /* Dış scroll kapalı, iç scroll açık */
         }
 
-        .nebula-overlay {
+        /* --- SPLASH SCREEN (Açılış) --- */
+        #splash-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(142, 68, 173, 0.1), transparent 70%);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* --- Astronaut & Cosmic Elements --- */
-        .astro-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .floating-astro {
-            position: absolute;
-            width: 220px;
-            opacity: 0.7;
-            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.2));
-            animation: cosmicVoyage 40s linear infinite;
-        }
-
-        @keyframes cosmicVoyage {
-            0% { transform: translate(-20vw, 10vh) rotate(0deg); }
-            25% { transform: translate(50vw, 40vh) rotate(90deg); }
-            50% { transform: translate(90vw, 70vh) rotate(180deg); }
-            75% { transform: translate(30vw, 30vh) rotate(270deg); }
-            100% { transform: translate(-20vw, 10vh) rotate(360deg); }
-        }
-
-        /* --- Navigation --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 30px;
+            inset: 0;
+            background: radial-gradient(circle at center, #1a1a2e 0%, var(--bg-dark) 100%);
+            z-index: 10000;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            z-index: 1000;
-            background: rgba(3, 3, 8, 0.85);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
+            transition: transform 0.8s cubic-bezier(0.8, 0, 0.2, 1);
         }
 
-        .logo-box {
+        .splash-logo {
+            width: 120px;
+            filter: drop-shadow(0 0 20px var(--primary-gold));
+            animation: cosmicPulse 2.5s infinite ease-in-out;
+        }
+
+        .splash-text {
+            margin-top: 25px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 5px;
+            color: var(--primary-gold);
+            text-align: center;
+        }
+
+        @keyframes cosmicPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 40px var(--primary-gold)); }
+        }
+
+        /* --- ANA TAYYİRE (APP VIEWPORT) --- */
+        .app-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            opacity: 0; /* Splash sonrası açılacak */
+            transition: opacity 1s ease;
+        }
+
+        /* --- HEADER (Vakur ve Büyük) --- */
+        header {
+            padding: calc(30px + var(--safe-area-top)) 25px 20px;
+            background: rgba(5, 5, 10, 0.85);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 900;
+        }
+
+        .brand {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
-        .logo-box img {
+        .brand img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-gold);
+        }
+
+        .brand-text h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .brand-text span {
+            font-size: 0.75rem;
+            color: var(--primary-gold);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon-btn {
             width: 45px;
             height: 45px;
-            border: 2px solid var(--gold-leaf);
-            padding: 2px;
+            background: var(--glass-white);
             border-radius: 50%;
-            transition: 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .logo-box:hover img {
-            transform: rotate(360deg) scale(1.1);
-            box-shadow: 0 0 20px var(--gold-leaf);
+        /* --- MAIN CONTENT (Kaydırılabilir Alan) --- */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 0 calc(100px + var(--safe-area-bottom));
+            scroll-behavior: smooth;
         }
 
-        .logo-text {
-            font-family: var(--space-font);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* --- STORIES (Gönüllü Günlükleri) --- */
+        .stories {
+            display: flex;
+            gap: 15px;
+            padding: 0 20px 30px;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
+        .stories::-webkit-scrollbar { display: none; }
 
-        /* --- Hero Section --- */
-        .hero {
-            position: relative;
-            min-height: 100vh;
+        .story-item {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 0 10%;
-            z-index: 10;
+            align-items: center;
+            gap: 8px;
+            min-width: 85px;
         }
 
-        .hero-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--gold-leaf);
-            border-radius: 50px;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--gold-leaf);
-            margin-bottom: 30px;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 10vw, 5.5rem);
-            font-weight: 800;
-            line-height: 0.9;
-            margin-bottom: 30px;
-            font-family: var(--body-font);
-        }
-
-        .hero h1 span {
-            display: block;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--zen-white);
-        }
-
-        .hero p {
-            max-width: 500px;
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: rgba(255,255,255,0.7);
-            border-left: 3px solid var(--gold-leaf);
-            padding-left: 25px;
-        }
-
-        /* --- Content Blocks --- */
-        .section-container {
+        .story-ring {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(45deg, var(--primary-gold), var(--primary-purple), var(--accent-green));
             position: relative;
-            z-index: 10;
-            padding: 100px 5%;
         }
 
-        .glass-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 40px;
-            padding: 60px 40px;
-            backdrop-filter: blur(10px);
-            margin-bottom: 100px;
-            transition: 0.4s ease;
+        .story-ring img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid var(--bg-dark);
+            object-fit: cover;
         }
 
-        .glass-card:hover {
-            border-color: var(--nebula-light);
-            background: rgba(255, 255, 255, 0.05);
-        }
+        .story-item span { font-size: 0.7rem; font-weight: 600; opacity: 0.8; }
 
-        .ihh-accent {
-            color: #2ecc71; /* IHH'nın yeşiline zarif bir gönderme */
-            font-weight: 600;
-        }
-
-        /* --- Feature Grid --- */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
-            border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 30px;
+        /* --- ÖNE ÇIKAN BANNER --- */
+        .hero-card {
+            margin: 0 20px 30px;
+            background: linear-gradient(135deg, #1e1e2f 0%, #0a0a1a 100%);
+            border-radius: 35px;
+            padding: 35px 25px;
             position: relative;
             overflow: hidden;
-            transition: 0.5s;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .feature-card::before {
+        .hero-card::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(142, 68, 173, 0.1) 0%, transparent 70%);
-            transition: 0.5s;
+            top: -50%; right: -50%;
+            width: 200px; height: 200px;
+            background: var(--primary-gold);
+            filter: blur(80px);
+            opacity: 0.1;
         }
 
-        .feature-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--gold-leaf);
+        .hero-card h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 15px;
         }
 
-        .feature-card i {
-            font-size: 2.5rem;
+        .hero-card p {
+            font-size: 1.05rem;
+            opacity: 0.7;
             margin-bottom: 25px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            line-height: 1.6;
         }
 
-        /* --- Cinematic Form --- */
-        .cosmic-form {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .cosmic-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid var(--glass-border);
-            padding: 15px 0;
-            color: white;
-            font-size: 1.2rem;
-            font-family: var(--body-font);
-            transition: 0.3s;
-        }
-
-        .cosmic-input:focus {
-            outline: none;
-            border-color: var(--gold-leaf);
-        }
-
-        .submit-trigger {
-            background: var(--accent-gradient);
-            color: var(--bg-deep);
-            border: none;
-            padding: 20px 60px;
-            border-radius: 50px;
+        .btn-glow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary-gold);
+            color: #000;
+            padding: 18px 35px;
+            border-radius: 20px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.4s;
-            margin-top: 30px;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 25px rgba(241, 196, 15, 0.3);
         }
 
-        .submit-trigger:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+        /* --- KATEGORİ MODÜLLERİ --- */
+        .section-title {
+            padding: 0 25px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* --- Footer --- */
-        footer {
-            padding: 80px 5% 40px;
-            background: linear-gradient(to top, #0a0a15, transparent);
+        .section-title h3 { font-family: 'Syncopate', sans-serif; font-size: 0.9rem; letter-spacing: 2px; }
+
+        .category-grid {
+            padding: 0 20px;
+            display: grid;
+            gap: 20px;
+        }
+
+        .cat-card {
+            background: var(--bg-card);
+            border-radius: 30px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border: 1px solid var(--glass-white);
+            transition: transform 0.3s ease;
+        }
+
+        .cat-card:active { transform: scale(0.96); }
+
+        .cat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .cat-info h4 { font-size: 1.8rem; margin-bottom: 8px; }
+        .cat-info p { font-size: 1.05rem; line-height: 1.5; color: var(--text-muted); }
+
+        /* Kategori Renkleri */
+        .cat-pati .cat-icon { background: rgba(255, 159, 67, 0.1); color: #ff9f43; border: 1px solid #ff9f43; }
+        .cat-yesil .cat-icon { background: rgba(46, 204, 113, 0.1); color: #2ecc71; border: 1px solid #2ecc71; }
+        .cat-askida .cat-icon { background: rgba(52, 152, 219, 0.1); color: #3498db; border: 1px solid #3498db; }
+
+        .cat-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .volunteer-count { font-size: 0.85rem; font-weight: 600; color: var(--primary-gold); }
+
+        .join-badge {
+            padding: 10px 20px;
+            background: var(--glass-white);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* --- MOTTO SECTION --- */
+        .motto-banner {
+            margin: 50px 20px;
+            padding: 40px;
             text-align: center;
-            z-index: 10;
+            border: 2px dashed var(--glass-white);
+            border-radius: 40px;
             position: relative;
         }
 
-        .social-link {
-            font-size: 1.8rem;
-            color: var(--zen-white);
-            margin: 0 20px;
+        .motto-banner h5 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 6px;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+        }
+
+        .motto-banner h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* --- BOTTOM NAVIGATION (Sticky & Modern) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: calc(85px + var(--safe-area-bottom));
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(30px);
+            border-top: 1px solid var(--glass-white);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 15px calc(15px + var(--safe-area-bottom));
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 600;
             transition: 0.3s;
         }
 
-        .social-link:hover {
-            color: var(--gold-leaf);
-            transform: translateY(-5px);
+        .nav-btn.active { color: var(--primary-gold); }
+        .nav-btn i { font-size: 1.5rem; }
+
+        .center-action {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(45deg, var(--primary-gold), #ffdb58);
+            border-radius: 50%;
+            margin-top: -50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: #000;
+            box-shadow: 0 15px 30px rgba(241, 196, 15, 0.4);
+            border: 6px solid var(--bg-dark);
         }
 
-        .footer-line {
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--glass-border), transparent);
-            margin: 40px 0;
+        /* --- MODAL SYSTEM --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            display: none;
+            padding: 40px 20px;
+            overflow-y: auto;
         }
 
-        /* --- Mobile Responsiveness --- */
-        @media (max-width: 768px) {
-            .hero { padding: 0 5%; }
-            .hero h1 { font-size: 3.5rem; }
-            .floating-astro { width: 150px; }
-            .glass-card { padding: 40px 20px; }
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 40px;
+            padding: 40px 30px;
+            position: relative;
         }
+
+        .close-modal {
+            position: absolute;
+            top: 25px; right: 25px;
+            font-size: 1.5rem;
+        }
+
+        /* --- INTERACTIVE STATS --- */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 0 20px 40px;
+        }
+
+        .stat-item {
+            background: var(--glass-white);
+            padding: 20px;
+            border-radius: 25px;
+            text-align: center;
+        }
+
+        .stat-item h6 { font-size: 1.8rem; color: var(--primary-gold); }
+        .stat-item span { font-size: 0.75rem; text-transform: uppercase; opacity: 0.6; }
+
     </style>
 </head>
 <body>
 
-    <div id="custom-cursor"></div>
-    <div id="cursor-follower"></div>
-
-    <div id="particles-js"></div>
-    <div class="nebula-overlay"></div>
-
-    <div class="astro-container">
-        <img src="https://img1.picmix.com/output/stamp/normal/0/8/4/5/1585480_8e5cc.gif" class="floating-astro" alt="Kozmik Gönüllü">
+    <div id="splash-screen">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" class="splash-logo" alt="Logo">
+        <div class="splash-text">IYILIK SINIR TANIMAZ</div>
+        <div style="margin-top: 50px; width: 40px; height: 2px; background: var(--primary-gold); animation: lineGrow 2s infinite;"></div>
     </div>
 
-    <nav>
-        <div class="logo-box">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" alt="IHH Logo">
-            <div class="logo-text">İYİLİĞİN GELECEĞİ</div>
+    <div class="app-container" id="main-app">
+        
+        <header>
+            <div class="brand">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" alt="Logo">
+                <div class="brand-text">
+                    <h1>İHH KAMPÜS</h1>
+                    <span>İyiliğin Geleceği</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div class="icon-btn" style="position: relative;">
+                    <i class="fa-solid fa-bell"></i>
+                    <span style="position: absolute; top: 0; right: 0; width: 12px; height: 12px; background: red; border-radius: 50%; border: 2px solid var(--bg-dark);"></span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="stories">
+                <div class="story-item">
+                    <div class="story-ring"><img src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?w=200" alt="Saha"></div>
+                    <span>Saha Canlı</span>
+                </div>
+                <div class="story-item">
+                    <div class="story-ring"><img src="https://images.unsplash.com/photo-1541516166143-bb47e50e0460?w=200" alt="Mama"></div>
+                    <span>Pati Timi</span>
+                </div>
+                <div class="story-item">
+                    <div class="story-ring"><img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=200" alt="Yeşil"></div>
+                    <span>Fidanlar</span>
+                </div>
+                <div class="story-item">
+                    <div class="story-ring"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=200" alt="Yetim"></div>
+                    <span>Yetimhane</span>
+                </div>
+                <div class="story-item">
+                    <div class="story-ring"><img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=200" alt="Bağış"></div>
+                    <span>Askıda</span>
+                </div>
+            </div>
+
+            <div class="hero-card" data-aos="zoom-in">
+                <h2>BİR KALBE<br><span style="color: var(--primary-gold);">İSTASYON OL.</span></h2>
+                <p>Kampüsünde iyiliği yaymak için bir adım at. Bugün bir canın kahramanı olabilirsin.</p>
+                <div class="btn-glow" onclick="showModal('action')">GÖREVE BAŞLA <i class="fa-solid fa-rocket"></i></div>
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-item" data-aos="fade-up">
+                    <h6 id="count1">4.2k</h6>
+                    <span>Gönüllü</span>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                    <h6 id="count2">850</h6>
+                    <span>Can Dostu</span>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <h3>HİZMET KAPILARI</h3>
+                <i class="fa-solid fa-arrow-right-long" style="color: var(--primary-gold);"></i>
+            </div>
+
+            <div class="category-grid">
+                <div class="cat-card cat-pati" data-aos="fade-left" onclick="showCategory('Pati Ekibi')">
+                    <div class="cat-icon"><i class="fa-solid fa-paw"></i></div>
+                    <div class="cat-info">
+                        <h4>Pati Ekibi</h4>
+                        <p>Kampüsteki tüylü dostlarımızın artık bir kahramanı daha var. Burada sadece mama dağıtmıyoruz, yaşam hakkını savunuyoruz.</p>
+                    </div>
+                    <div class="cat-footer">
+                        <span class="volunteer-count">128 Gönüllü Aktif</span>
+                        <div class="join-badge">KATIL <i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </div>
+
+                <div class="cat-card cat-yesil" data-aos="fade-right" onclick="showCategory('Yeşil Adım')">
+                    <div class="cat-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="cat-info">
+                        <h4>Yeşil Adım</h4>
+                        <p>Geleceğe nefes olacak ekibe dahil oldun. Çok yakında toprağa dokunacağımız etkinliklerde kampüsü yeşerteceğiz.</p>
+                    </div>
+                    <div class="cat-footer">
+                        <span class="volunteer-count">342 Fidan Dikildi</span>
+                        <div class="join-badge">KATIL <i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </div>
+
+                <div class="cat-card cat-askida" data-aos="fade-left" onclick="showCategory('Askıda İyilik')">
+                    <div class="cat-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                    <div class="cat-info">
+                        <h4>Askıda İyilik</h4>
+                        <p>Paylaşmanın merkezindesin. Küçük dokunuşlarla büyük farklar yaratacağımız projeler için buradayız.</p>
+                    </div>
+                    <div class="cat-footer">
+                        <span class="volunteer-count">1.2k Paylaşım</span>
+                        <div class="join-badge">KATIL <i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="motto-banner" data-aos="fade-up">
+                <h5>MİSYONUMUZ</h5>
+                <h2>"İyilik Sınır Tanımaz"</h2>
+                <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.4;">İHH Kampüs | 2026</div>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <div class="nav-btn active">
+                <i class="fa-solid fa-house-chimney-window"></i>
+                <span>Akış</span>
+            </div>
+            <div class="nav-btn" onclick="showModal('map')">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Harita</span>
+            </div>
+            <div class="center-action" onclick="showModal('new')">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            <div class="nav-btn">
+                <i class="fa-solid fa-award"></i>
+                <span>Rozetler</span>
+            </div>
+            <div class="nav-btn">
+                <i class="fa-solid fa-user-astronaut"></i>
+                <span>Profil</span>
+            </div>
+        </nav>
+    </div>
+
+    <div id="general-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+            <div id="modal-body">
+                </div>
         </div>
-        <div class="menu-icon"><i class="fa-solid fa-ellipsis-vertical" style="color: var(--gold-leaf);"></i></div>
-    </nav>
-
-    <main>
-        <section class="hero">
-            <div class="hero-badge" data-aos="fade-down">Sınır Tanımayan İyilik Hareketi</div>
-            <h1 data-aos="fade-right" data-aos-delay="200">
-                GÖKTE BİR YILDIZ,<br>
-                <span>YERDE BİR EL.</span>
-            </h1>
-            <p data-aos="fade-up" data-aos-delay="400">
-                Bizler, evrenin vicdanı olmak için bir araya gelmiş "İyiliğin Geleceği" gönüllüleriyiz. Bir çocuğun tebessümünde galaksileri keşfediyoruz.
-            </p>
-        </section>
-
-        <section class="section-container">
-            <div class="glass-card" data-aos="zoom-in-up">
-                <h2 style="font-family: var(--space-font); color: var(--gold-leaf); margin-bottom: 30px;">MANIFESTO</h2>
-                <p style="font-size: 1.3rem; font-weight: 300; max-width: 800px;">
-                    <span class="ihh-accent">IHH İnsani Yardım Vakfı</span>'nın köklü çınarının gölgesinde, kampüslerden dünyaya uzanan bir iyilik köprüsü kuruyoruz. Bizim için mesafe sadece bir sayı, renk sadece bir ton, dil sadece bir sestir. <br><br>
-                    <strong>Hedefimiz:</strong> Modern çağın yalnızlaştırdığı ruhları, "Halka hizmet, Hakk'a hizmettir" düsturuyla birleştirmek.
-                </p>
-            </div>
-
-            <div class="feature-grid">
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fa-solid fa-hand-holding-heart"></i>
-                    <h3>Yetim Güneşi</h3>
-                    <p>Dünyanın tüm yetimleri bizim kardeşimizdir. Onların eğitiminden hayallerine kadar her adımda yanlarındayız.</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fa-solid fa-droplet"></i>
-                    <h3>Hayat Suyu</h3>
-                    <p>Kuruyan topraklara, çatlamış dudaklara bir damla umut olmak için teknoloji ve gönüllülüğü birleştiriyoruz.</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fa-solid fa-brain"></i>
-                    <h3>Akıl ve İrfan</h3>
-                    <p>Sadece ekmek değil, fikir de paylaşıyoruz. Okuma halkaları ve stratejik projelerle geleceği inşa ediyoruz.</p>
-                </div>
-                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-                    <i class="fa-solid fa-earth-americas"></i>
-                    <h3>Ekolojik Denge</h3>
-                    <p>Emanet olan doğayı koruyor, "Yarın kıyamet kopacağını bilseniz bile elinizdeki fidanı dikin" diyen bir medeniyetin izini sürüyoruz.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-container">
-            <div class="cosmic-form" data-aos="fade-up">
-                <h2 style="font-family: var(--space-font); margin-bottom: 20px;">YILDIZINI SEÇ</h2>
-                <p style="opacity: 0.6; margin-bottom: 50px;">Kendi iyilik yörüngeni oluşturmaya hazır mısın?</p>
-                
-                <form id="iyilikForm">
-                    <div class="input-group">
-                        <input type="text" class="cosmic-input" placeholder="İsminiz / Gönül Mahlasınız" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="email" class="cosmic-input" placeholder="Kozmik İletişim (E-posta)" required>
-                    </div>
-                    <div class="input-group">
-                        <textarea class="cosmic-input" rows="4" placeholder="Hangi iyilik hayaliyle yanıyorsun?"></textarea>
-                    </div>
-                    <button type="submit" class="submit-trigger">Işığı Yaymaya Başla</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="social-box">
-            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-x-twitter"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <div class="footer-line"></div>
-        <p style="letter-spacing: 5px; font-weight: 700; color: var(--gold-leaf);">İHH KAMPÜS | 2026</p>
-        <p style="opacity: 0.4; font-size: 0.8rem; margin-top: 15px;">Bu bir iyilik galaksisidir. Tüm hakları vicdana aittir.</p>
-    </footer>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    
     <script>
-        // AOS Başlatma
-        AOS.init({ duration: 1500, once: false, mirror: true });
+        // AOS Başlat
+        AOS.init({ duration: 1000, once: true });
 
-        // Custom Cursor Logic
-        const cursor = document.getElementById('custom-cursor');
-        const follower = document.getElementById('cursor-follower');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        // Splash Screen Yönetimi
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                follower.style.transform = `translate(${e.clientX - 15}px, ${e.clientY - 15}px)`;
-            }, 50);
+                const splash = document.getElementById('splash-screen');
+                const app = document.getElementById('main-app');
+                
+                splash.style.transform = 'translateY(-100%)';
+                app.style.opacity = '1';
+                
+                // Sayı Sayacı Başlat
+                animateCounter('count1', 0, 4200, 2000);
+                animateCounter('count2', 0, 850, 2000);
+            }, 2500);
         });
 
-        // Hover Effect for Cursor
-        const interactiveElements = document.querySelectorAll('button, a, .feature-card, .cosmic-input');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                follower.style.transform += ' scale(2)';
-                follower.style.borderColor = 'var(--gold-leaf)';
-            });
-            el.addEventListener('mouseleave', () => {
-                follower.style.transform = follower.style.transform.replace(' scale(2)', '');
-                follower.style.borderColor = 'var(--nebula-light)';
-            });
-        });
+        // Sayı Sayacı Fonksiyonu
+        function animateCounter(id, start, end, duration) {
+            let obj = document.getElementById(id);
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let timer = setInterval(function() {
+                current += increment;
+                obj.innerText = current + (id === 'count1' ? 'k' : '');
+                if (current == end) clearInterval(timer);
+            }, stepTime);
+        }
 
-        // Particles Configuration (Optimize Edilmiş)
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 120, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": ["#ffffff", "#d4af37", "#8e44ad"] },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
-                "size": { "value": 2, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.05, "width": 1 },
-                "move": { "enable": true, "speed": 0.6, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
-            },
-            "interactivity": {
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
-                "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 0.2 } } }
+        // Modal Yönetimi
+        function showModal(type) {
+            const overlay = document.getElementById('general-modal');
+            const body = document.getElementById('modal-body');
+            overlay.style.display = 'block';
+
+            if(type === 'new') {
+                body.innerHTML = `
+                    <h2 style="font-family:'Syncopate'; color:var(--primary-gold); margin-bottom:20px;">YENİ PROJE</h2>
+                    <p style="margin-bottom:20px;">Hayalindeki iyilik hareketini başlat. Biz destekleyelim.</p>
+                    <input type="text" placeholder="Proje Adı" style="width:100%; padding:15px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-white); border-radius:15px; color:white; margin-bottom:15px;">
+                    <textarea placeholder="Detaylar..." rows="5" style="width:100%; padding:15px; background:rgba(255,255,255,0.05); border:1px solid var(--glass-white); border-radius:15px; color:white;"></textarea>
+                    <button style="width:100%; padding:20px; background:var(--primary-gold); border:none; border-radius:15px; margin-top:20px; font-weight:800;">EVRENE GÖNDER</button>
+                `;
+            } else if(type === 'map') {
+                body.innerHTML = `
+                    <h2 style="font-family:'Syncopate'; color:var(--primary-gold); margin-bottom:20px;">İYİLİK HARİTASI</h2>
+                    <div style="width:100%; height:300px; background:#1a1a2e; border-radius:20px; display:flex; align-items:center; justify-content:center; border:1px solid var(--primary-gold);">
+                        <i class="fa-solid fa-location-dot" style="font-size:3rem; color:var(--primary-gold); animation: bounce 1s infinite;"></i>
+                    </div>
+                    <p style="margin-top:20px; text-align:center;">Yakınındaki besleme noktaları ve yardım istasyonları yükleniyor...</p>
+                `;
             }
-        });
+        }
 
-        // Form Submission Simulation
-        document.getElementById('iyilikForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('button');
-            btn.innerHTML = "IŞIK GÖNDERİLİYOR...";
-            setTimeout(() => {
-                btn.innerHTML = "EVRENE ULAŞTI! ✨";
-                btn.style.background = "#2ecc71";
-                this.reset();
-            }, 2000);
+        function showCategory(name) {
+            const overlay = document.getElementById('general-modal');
+            const body = document.getElementById('modal-body');
+            overlay.style.display = 'block';
+            
+            let content = "";
+            if(name === 'Pati Ekibi') {
+                content = `
+                    <h2 style="color:#ff9f43; margin-bottom:15px;">Hoş geldin! 🐾</h2>
+                    <p style="font-size:1.1rem; line-height:1.6;">Kampüsteki tüylü dostlarımızın artık bir kahramanı daha var. Burada sadece mama dağıtmıyoruz, onların yaşam hakkını savunuyoruz.<br><br><b>Sıradaki Etkinlik:</b> Kuzey Kampüs Besleme (18:00)</p>
+                    <button style="width:100%; padding:20px; background:#ff9f43; border:none; border-radius:15px; margin-top:20px; font-weight:800; color:white;">EKİBE DAHİL OL</button>
+                `;
+            } else if(name === 'Yeşil Adım') {
+                content = `
+                    <h2 style="color:#2ecc71; margin-bottom:15px;">Selam doğasever! 🌱</h2>
+                    <p style="font-size:1.1rem; line-height:1.6;">Geleceğe nefes olacak ekibe dahil oldun. Çok yakında toprağa dokunacağımız, kampüsü yeşerteceğimiz etkinliklerde görüşmek üzere!<br><br><b>Hedef:</b> 1000 Yeni Fidan</p>
+                    <button style="width:100%; padding:20px; background:#2ecc71; border:none; border-radius:15px; margin-top:20px; font-weight:800; color:white;">FİDAN SAHİPLEN</button>
+                `;
+            } else if(name === 'Askıda İyilik') {
+                content = `
+                    <h2 style="color:#3498db; margin-bottom:15px;">Hoş geldin! 🤝</h2>
+                    <p style="font-size:1.1rem; line-height:1.6;">Paylaşmanın ve dayanışmanın merkezindesin. Küçük bir dokunuşla büyük farklar yaratacağımız projelerimiz için doğru yerdesin.<br><br><b>Aktif:</b> 42 Askıda Yemek</p>
+                    <button style="width:100%; padding:20px; background:#3498db; border:none; border-radius:15px; margin-top:20px; font-weight:800; color:white;">BİR EL DE SEN UZAT</button>
+                `;
+            }
+            body.innerHTML = content;
+        }
+
+        function closeModal() {
+            document.getElementById('general-modal').style.display = 'none';
+        }
+
+        // Touch Feedback (Titreşim Simülasyonu)
+        document.querySelectorAll('.nav-btn, .cat-card, .btn-glow').forEach(el => {
+            el.addEventListener('touchstart', () => {
+                if (window.navigator.vibrate) window.navigator.vibrate(10);
+            });
         });
     </script>
 </body>
