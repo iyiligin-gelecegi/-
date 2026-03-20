@@ -3,775 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İyiliğin Geleceği | Sınır Tanımayan İyilik Hareketi</title>
+    <title>İyiliğin Geleceği | Sınır Tanımayan İyilik Galaksisi</title>
     
-    <meta name="description" content="Dünya için küçük, bir canlı için büyük bir adım atmaya hazır mısın? Kampüste iyiliğin geleceğini beraber inşa edelim.">
-    <meta property="og:title" content="İyiliğin Geleceği | Sınır Tanımaz">
-    <meta property="og:image" content="https://iyiligingelecegi.github.io/images/hero-astro.png"> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* -----------------------------------------------------------
-           1. Temel Stiller (Reset & Variables)
-           ----------------------------------------------------------- */
         :root {
-            --primary-bg: #03001e; /* Çok koyu uzay mavisi */
-            --secondary-bg: #edeeff; /* Çok açık gri-mavi (Vizyon ve SSS) */
-            --accent-color: #6c5ce7; /* Modern mor */
-            --accent-hover: #5a4bcf;
-            --text-dark: #2d3436;
-            --text-light: #dfe6e9;
-            --pati-color: #ff7675; /* Pembe/Mercan */
-            --yesil-color: #26de81; /* Canlı yeşil */
-            --askida-color: #45aaf2; /* Mavi */
-            --atolye-color: #fd9644; /* Turuncu */
-            --font-main: 'Poppins', sans-serif;
-            --font-title: 'Exo 2', sans-serif;
+            --space-dark: #05050a;
+            --nebula-purple: #6c5ce7;
+            --stardust-gold: #fdcb6e;
+            --zen-teal: #00cec9;
+            --soul-pink: #ff7675;
+            --text-main: #f5f6fa;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: var(--font-main);
-            color: var(--text-dark);
-            background-color: var(--secondary-bg);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--space-dark);
+            color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-        h1, h2, h3 { font-family: var(--font-title); font-weight: 700; }
-        button, .btn { cursor: pointer; border: none; font-family: var(--font-main); transition: 0.3s; }
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* -----------------------------------------------------------
-           2. Navbar Stilleri
-           ----------------------------------------------------------- */
-        header {
-            background-color: rgba(3, 0, 30, 0.9);
-            color: var(--text-light);
-            padding: 15px 0;
+        /* Arka Plan Yıldızları */
+        #particles-js {
             position: fixed;
             width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid rgba(108, 92, 231, 0.2);
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-area img { width: 40px; height: 40px; }
-        .logo-area span { font-size: 1.4rem; color: #fff; font-weight: 700; }
-
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a:hover { color: var(--accent-color); }
-
-        .mobile-menu-icon { display: none; font-size: 1.5rem; }
-
-        /* -----------------------------------------------------------
-           3. Hero Bölümü (Giriş) - Yıldızlar ve Astronot
-           ----------------------------------------------------------- */
-        .hero {
-            height: 100vh;
-            background-color: var(--primary-bg);
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding-top: 80px; /* Navbar için boşluk */
-        }
-
-        /* Parçacık (Yıldız) Efekti Arka Planı */
-        #particles-js {
-            position: absolute;
-            width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
+            z-index: -1;
         }
 
-        .hero .container {
+        .container { padding: 0 25px; }
+
+        /* --- Mobil Navbar --- */
+        nav {
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 10, 0.8);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 2;
-            position: relative;
         }
 
-        .hero-content {
-            max-width: 50%;
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
+        .logo-box img {
+            width: 35px;
+            border-radius: 50%;
+            border: 2px solid var(--nebula-purple);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .astro-gif {
+            width: 220px;
+            margin: 0 auto 30px;
+            filter: drop-shadow(0 0 15px var(--nebula-purple));
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            line-height: 1.1;
             margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #fff, #6c5ce7);
+            background: linear-gradient(45deg, #fff, var(--nebula-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-content p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 30px;
-            color: rgba(223, 230, 233, 0.8);
-        }
-
-        .hero-image {
-            max-width: 40%;
-            position: relative;
-        }
-
-        .hero-image img {
-            width: 100%;
-            animation: floating 6s ease-in-out infinite; /* Süzülme Animasyonu */
-        }
-
-        /* Astronot Süzülme Animasyonu */
-        @keyframes floating {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-25px) rotate(5deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-
-        /* -----------------------------------------------------------
-           4. Vizyon Bölümü (Biz Kimiz?)
-           ----------------------------------------------------------- */
-        .vizyon {
-            padding: 100px 0;
-            background-color: var(--secondary-bg);
-            text-align: center;
-        }
-
-        .vizyon-content {
-            background: #fff;
-            padding: 60px;
+        .motto-tag {
+            display: inline-block;
+            padding: 6px 15px;
+            background: var(--glass);
+            border: 1px solid var(--nebula-purple);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .vizyon-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--pati-color), var(--yesil-color), var(--askida-color), var(--atolye-color));
-        }
-
-        .vizyon h2 {
-            font-size: 2.5rem;
-            margin-bottom: 25px;
-            color: var(--accent-color);
-        }
-
-        .vizyon p {
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            font-weight: 300;
-        }
-
-        /* -----------------------------------------------------------
-           5. Eylem Grupları (Senin Rotan Hangisi?)
-           ----------------------------------------------------------- */
-        .rotalar {
-            padding: 100px 0;
-            background-color: #fff;
-        }
-
-        .section-header {
+        /* --- Biz Kimiz (Modern Tasavvuf) --- */
+        .vizyon-card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px 25px;
+            border-radius: 30px;
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--text-dark);
+        .vizyon-card h2 { color: var(--stardust-gold); margin-bottom: 15px; }
+
+        /* --- Estetik Kategoriler (Rotalar) --- */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .rota-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            gap: 20px;
         }
 
-        .rota-card {
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            border: 1px solid #eee;
-            text-align: center;
-            transition: all 0.4s ease;
+        .rota-item {
             position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 24px;
+            transition: 0.3s;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
-        .rota-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        /* Kartların renkli vurgu şeridi */
-        .rota-card::after {
+        .rota-item::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            transition: 0.3s;
+            top: 0; left: 0; width: 4px; height: 100%;
         }
 
-        .card-pati:hover::after { background-color: var(--pati-color); }
-        .card-yesil:hover::after { background-color: var(--yesil-color); }
-        .card-askida:hover::after { background-color: var(--askida-color); }
-        .card-atolye:hover::after { background-color: var(--atolye-color); }
+        .soul-route::before { background: var(--soul-pink); }
+        .zen-route::before { background: var(--zen-teal); }
+        .star-route::before { background: var(--stardust-gold); }
+        .nebula-route::before { background: var(--nebula-purple); }
 
-        .rota-card i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .card-pati i { color: var(--pati-color); }
-        .card-yesil i { color: var(--yesil-color); }
-        .card-askida i { color: var(--askida-color); }
-        .card-atolye i { color: var(--atolye-color); }
-
-        .rota-card h3 {
-            font-size: 1.5rem;
+        .rota-item i {
+            font-size: 2rem;
             margin-bottom: 15px;
-            color: var(--text-dark);
+            display: block;
         }
 
-        .rota-card p {
-            font-size: 0.95rem;
-            color: #666;
-            font-weight: 300;
-            margin-bottom: 30px;
-            flex-grow: 1;
-        }
+        .rota-item h3 { font-size: 1.4rem; margin-bottom: 10px; }
+        .rota-item p { font-size: 0.9rem; opacity: 0.8; font-weight: 300; }
 
-        .btn-card {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: #eee;
-            color: var(--text-dark);
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .rota-card:hover .btn-card {
-            background-color: var(--accent-color);
-            color: #fff;
-        }
-
-        /* -----------------------------------------------------------
-           6. Fikir Kutusu Bölümü
-           ----------------------------------------------------------- */
-        .fikir {
-            padding: 100px 0;
-            background-color: var(--secondary-bg);
-        }
-
-        .fikir-container {
-            background-color: #fff;
-            padding: 60px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-
-        .fikir-text { flex: 1; }
-        .fikir-form { flex: 1; }
-
-        .fikir h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-
-        .fikir p {
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: var(--text-dark);
-            margin-bottom: 30px;
-        }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: var(--font-main);
-            transition: 0.3s;
-        }
-        .form-group textarea { height: 120px; resize: none; }
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(108, 92, 231, 0.1);
-        }
-
-        .btn-send {
-            width: 100%;
-            padding: 15px;
-            background-color: var(--accent-color);
-            color: #fff;
-            font-weight: 600;
-            border-radius: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .btn-send:hover { background-color: var(--accent-hover); }
-
-        /* -----------------------------------------------------------
-           7. SSS (Açılır-Kapanır Paneller)
-           ----------------------------------------------------------- */
-        .sss {
-            padding: 100px 0;
-            background-color: #fff;
-        }
-
-        .sss-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .sss h2 { text-align: center; margin-bottom: 50px; }
-
-        .accordion-item {
-            background-color: #fff;
-            border: 1px solid #eee;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: 0.3s;
-        }
-
-        .accordion-item:hover {
-            border-color: rgba(108, 92, 231, 0.3);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-        }
-
-        .accordion-header {
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .accordion-header h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            font-family: var(--font-main);
-        }
-
-        .accordion-icon {
-            font-size: 1.2rem;
-            color: #ccc;
-            transition: transform 0.3s ease;
-        }
-
-        .accordion-content {
-            padding: 0 25px; /* Başlangıçta padding yok */
-            max-height: 0; /* Başlangıçta kapalı */
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.3s ease;
-            background-color: #fafaff;
-        }
-
-        /* Aktif panel stilleri (JS ile eklenecek) */
-        .accordion-item.active {
-            border-color: var(--accent-color);
-        }
-
-        .accordion-item.active .accordion-icon {
-            transform: rotate(180deg);
-            color: var(--accent-color);
-        }
-
-        .accordion-item.active .accordion-content {
-            padding: 20px 25px;
-            max-height: 500px; /* Maksimum içerik yüksekliği */
-        }
-
-        .accordion-content p {
-            font-size: 0.95rem;
-            color: #666;
-            font-weight: 300;
-        }
-
-        /* -----------------------------------------------------------
-           8. Son CTA ve Footer
-           ----------------------------------------------------------- */
-        .son-vurus {
+        /* --- Fikir Kutusu (Form) --- */
+        .fikir-section {
             padding: 80px 0;
-            background-color: var(--secondary-bg);
-            text-align: center;
         }
 
-        .cta-box {
-            background-color: #fff;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            max-width: 700px;
-            margin: 0 auto;
+        .input-group {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .cta-box p {
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            margin-bottom: 30px;
-            font-weight: 400;
-        }
-
-        .btn-main-cta {
-            display: inline-block;
-            padding: 15px 40px;
-            background-color: var(--accent-color);
+        .input-group input, .input-group textarea {
+            background: transparent;
+            border: none;
             color: #fff;
-            border-radius: 30px;
-            font-size: 1.1rem;
+            width: 100%;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .btn-cosmic {
+            background: var(--nebula-purple);
+            color: white;
+            width: 100%;
+            padding: 18px;
+            border-radius: 15px;
+            border: none;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-        }
-        .btn-main-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
         }
 
         footer {
-            background-color: var(--primary-bg);
-            color: var(--text-light);
-            padding: 60px 0 30px 0;
-            border-top: 1px solid rgba(108, 92, 231, 0.1);
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .motto {
-            font-style: italic;
-            opacity: 0.8;
-            font-weight: 300;
-        }
-
-        .footer-logos {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-        .footer-logos img { height: 50px; opacity: 0.8; transition: 0.3s; }
-        .footer-logos img:hover { opacity: 1; }
-
-        .social-links { display: flex; gap: 20px; font-size: 1.5rem; }
-        .social-links a:hover { color: var(--accent-color); }
-
-        .copyright {
             text-align: center;
+            padding: 40px 0;
             font-size: 0.8rem;
-            color: rgba(223, 230, 233, 0.5);
-            border-top: 1px solid rgba(223, 230, 233, 0.1);
-            padding-top: 20px;
+            opacity: 0.5;
+            border-top: 1px solid var(--glass);
         }
 
-        /* -----------------------------------------------------------
-           9. Mobil Uyumluluk (Responsive)
-           ----------------------------------------------------------- */
-        @media (max-width: 992px) {
-            .hero-content { max-width: 100%; text-align: center; }
-            .hero-image { display: none; } /* Mobil de görüntüyü gizle */
-            
-            .fikir-container { flex-direction: column; text-align: center; }
+        /* Mobil Optimizasyon */
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; }
         }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; } /* Basit bir mobil menü çözümü */
-            .mobile-menu-icon { display: block; }
-            
-            .hero-content h1 { font-size: 2.5rem; }
-            .vizyon-content { padding: 30px; }
-            .sss-container { padding: 0 10px; }
-        }
-
     </style>
 </head>
 <body>
 
-    <header>
-        <nav class="container">
-            <div class="logo-area">
-                <img src="images/logo.png" alt="Kulüp Logosu"> <span>İyiliğin Geleceği</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#hero">Giriş</a></li>
-                <li><a href="#vizyon">Biz Kimiz</a></li>
-                <li><a href="#rotalar">Rotalar</a></li>
-                <li><a href="#sss">SSS</a></li>
-                <li><a href="#iletişim">İletişim</a></li>
-            </ul>
-            <div class="mobile-menu-icon">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-    </header>
+    <div id="particles-js"></div>
 
-    <section id="hero" class="hero">
-        <div id="particles-js"></div> <div class="container">
-            <div class="hero-content" data-aos="fade-right">
-                <h1>İYİLİK SINIR TANIMAZ.</h1>
-                <p>Bir insan ya da bir canlı için 'büyük' bir adım atmaya hazır mısın? Kampüste iyiliğin geleceğini beraber inşa etmek için sınırları aşan bu yolculuğa hoş geldin.</p>
-                <a href="#rotalar" class="btn-main-cta">Yolculuğa Başla</a>
+    <nav>
+        <div class="container nav-content">
+            <div class="logo-box">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s&ec=121585071" alt="Logo">
+                <span>İyiliğin Geleceği</span>
             </div>
-            <div class="hero-image" data-aos="fade-left">
-                <img src="images/hero-astro.png" alt="Süzülen Astronot"> </div>
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+    </nav>
+
+    <section class="hero container">
+        <div class="motto-tag" data-aos="fade-down">Gel, Kim Olursan Ol Yine Gel</div>
+        <img src="https://img1.picmix.com/output/stamp/normal/0/8/4/5/1585480_8e5cc.gif" alt="Süzülen Astronot" class="astro-gif">
+        <h1 data-aos="zoom-in">İyilik Sınır Tanımaz, Galaksiler Aşar.</h1>
+        <p style="opacity: 0.7; font-weight: 300;">Kampüsün tozlu yollarından, kalbin sonsuz derinliklerine bir yolculuk. Sen yoksan bir yıldız eksiğiz.</p>
+    </section>
+
+    <section class="container" data-aos="fade-up">
+        <div class="vizyon-card">
+            <h2>Biz Kimiz?</h2>
+            <p>Bizler, kadim tasavvuf öğretisindeki 'hizmet' anlayışını dijital çağın hızıyla birleştiren modern dervişleriz. Gönüllülüğü bir ödev değil, bir varoluş biçimi olarak görüyoruz. İHH'nın köklü çınarı altında, kampüsün taze filizleri olarak göğe uzanıyoruz.</p>
         </div>
     </section>
 
-    <section id="vizyon" class="vizyon">
-        <div class="container">
-            <div class="vizyon-content" data-aos="fade-up">
-                <h2>Vizyonumuz</h2>
-                <p>Biz, iyiliğin sadece dönemsel bir yardım faaliyeti değil, sürdürülebilir bir gelecek inşa etme biçimi olduğuna inanan genç bir ekibiz. İHH’nın çeyrek asırlık insani yardım tecrübesini, kampüsün tükenmeyen enerjisi ve modern vizyonuyla birleştiriyoruz. Coğrafya, tür veya imkan gözetmeksizin, elin uzandığı her yere umut taşımak için buradayız.</p>
+    <section class="container">
+        <div class="section-title">
+            <h2 style="font-size: 2rem;">Hizmet Durakları</h2>
+            <p style="opacity: 0.6;">Ruhuna en yakın frekansı seç.</p>
+        </div>
+
+        <div class="rota-grid">
+            <div class="rota-item soul-route" data-aos="fade-left">
+                <i class="fa-solid fa-heart-pulse" style="color: var(--soul-pink);"></i>
+                <h3>Can Nefesi</h3>
+                <p>Sessiz dostlarımıza (hayvanlar) ve doğaya merhamet eli. Onların dili ol, dünyayı yeşert.</p>
+            </div>
+
+            <div class="rota-item zen-route" data-aos="fade-right">
+                <i class="fa-solid fa-hands-holding" style="color: var(--zen-teal);"></i>
+                <h3>Sofra Kardeşliği</h3>
+                <p>Askıda iyilik ve paylaşım kültürü. Bir çayı bölüşmek, bir gönle girmektir.</p>
+            </div>
+
+            <div class="rota-item star-route" data-aos="fade-left">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--stardust-gold);"></i>
+                <h3>İrfan Atölyesi</h3>
+                <p>El emeği kermesler, kitap tahlilleri ve sanat. Üretirken iyileşmek ve iyileştirmek için.</p>
+            </div>
+
+            <div class="rota-item nebula-route" data-aos="fade-right">
+                <i class="fa-solid fa-rocket" style="color: var(--nebula-purple);"></i>
+                <h3>Öncü Kuşak</h3>
+                <p>Kriz anlarında insani yardım ve lojistik. Dünyanın neresinde bir ah varsa, orada olma bilinci.</p>
             </div>
         </div>
     </section>
 
-    <section id="rotalar" class="rotalar">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Senin Rotan Hangisi?</h2>
-                <p>Kendi iyilik serüvenini başlatmak için sana en uygun ekibi seç.</p>
-            </div>
+    <section class="fikir-section container">
+        <div class="vizyon-card" style="margin-bottom: 20px;" data-aos="zoom-in">
+            <h3 style="margin-bottom: 15px;">Kendi Yıldızını Parlat</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 25px;">Sende bir ışık var, biz sadece ayna tutabiliriz. Yeni bir iyilik fikrin mi var? Çekinme, biz "gel" dedik bir kere!</p>
             
-            <div class="rota-grid">
-                <div class="rota-card card-pati" data-aos="flip-left" data-aos-delay="100">
-                    <i class="fas fa-paw"></i>
-                    <h3>Patili Dostlar</h3>
-                    <p>Kampüsteki ve çevremizdeki sessiz dostlarımızın sesi oluyoruz. Mama dağıtımı, barınak ziyaretleri ve tedavi destekleri düzenleyerek yaşam haklarını savunuyoruz.</p>
-                    <a href="#" class="btn-card">Pati Ekibine Katıl</a> </div>
-
-                <div class="rota-card card-yesil" data-aos="flip-left" data-aos-delay="200">
-                    <i class="fas fa-seedling"></i>
-                    <h3>Yeşil Adım</h3>
-                    <p>Geleceğe nefes olmak için tohum ekiyor, çevre temizliği yapıyor ve sürdürülebilir bir dünya için kampüste farkındalık oluşturuyoruz.</p>
-                    <a href="#" class="btn-card">Doğa Ekibine Katıl</a>
+            <form>
+                <div class="input-group">
+                    <input type="text" placeholder="Gönül İsmin (Adın)">
                 </div>
-
-                <div class="rota-card card-askida" data-aos="flip-left" data-aos-delay="300">
-                    <i class="fas fa-hand-holding-heart"></i>
-                    <h3>Askıda İyilik</h3>
-                    <p>Paylaşmanın ve dayanışmanın gücüne inanıyoruz. Kütüphanede kalem, kantinde çay veya ihtiyaç sahipleri için askıda ekmek projelerini yönetiyoruz.</p>
-                    <a href="#" class="btn-card">Paylaşım Ekibine Katıl</a>
+                <div class="input-group">
+                    <textarea rows="4" placeholder="İyilik İlhamın Nedir?"></textarea>
                 </div>
-
-                <div class="rota-card card-atolye" data-aos="flip-left" data-aos-delay="400">
-                    <i class="fas fa-palette"></i>
-                    <h3>İyilik Atölyesi</h3>
-                    <p>El emeğimizi iyiliğe dönüştürüyoruz. Kermesler için tasarım ürünler hazırlıyor, kitap tahlilleri ve kişisel gelişim seminerleri organize ediyoruz.</p>
-                    <a href="#" class="btn-card">Atölyeye Dahil Ol</a>
-                </div>
-            </div>
+                <button type="button" class="btn-cosmic">Işığı Gönder</button>
+            </form>
         </div>
     </section>
 
-    <section class="fikir">
+    <footer>
         <div class="container">
-            <div class="fikir-container" data-aos="zoom-in">
-                <div class="fikir-text">
-                    <h2>Kendi İyilik Galaksini Kur!</h2>
-                    <p>Yukarıdaki ekipler seni tam olarak yansıtmıyor mu? Ya da 'Şöyle bir iyilik yapsak kampüs yıkılır' dediğin orijinal bir fikrin mi var? Bize yaz, beraber hayata geçirelim!</p>
-                </div>
-                <div class="fikir-form">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" placeholder="Adın ve Soyadın" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="İyilik Fikrin Nedir?" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-send">Fikrimi Gönder</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="sss" class="sss">
-        <div class="container">
-            <div class="sss-container">
-                <h2 data-aos="fade-up">Aklına Takılanlar Olabilir</h2>
-                
-                <div class="accordion" data-aos="fade-up" data-aos-delay="100">
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <h3>Vaktim kısıtlı, yine de bir şeyler yapabilir miyim?</h3>
-                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
-                        </div>
-                        <div class="accordion-content">
-                            <p>Kesinlikle! Bizde "zorunlu mesai" yok. Kimi arkadaşımız haftada bir gün barınağa gelir, kimi sadece kantine giderken askıya bir çay bırakır. Sen ne kadar varsan, iyilik o kadar büyür. Küçük bir dokunuşun bile bir can için devrim olduğunu unutma.</p>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <h3>Belirli bir dünya görüşüne sahip olmam gerekiyor mu?</h3>
-                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
-                        </div>
-                        <div class="accordion-content">
-                            <p>Hayır. Bizim tek ortak noktamız vicdan. Kapımız; doğayı seven, hayvana merhamet eden, insanla ekmeğini paylaşmak isteyen herkese açık. Farklılıklarımız zenginliğimiz, iyilik ise ortak dilimizdir.</p>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <h3>Öğrenci halimle maddi bir desteğim olamaz, nasıl fayda sağlarım?</h3>
-                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
-                        </div>
-                        <div class="accordion-content">
-                            <p>İyilik sadece cüzdanla değil, emekle ve kalple yapılır. Bir fidanı sulamak, bir kediye mama vermek, ders notlarını alt dönemlerle paylaşmak veya sadece etkinliklerimizi duyurmak... Senin enerjin ve emeğin, paradan çok daha değerli.</p>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <h3>Daha önce hiç gönüllülük yapmadım, ne yapacağımı bilemezsem?</h3>
-                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
-                        </div>
-                        <div class="accordion-content">
-                            <p>Hiç dert etme! Ekibimizdeki tecrübeli arkadaşlar (ve o meşhur astronotumuz) sana rehberlik edecek. İlk adımda sadece yanımızda olman yeterli, gerisi kendiliğinden gelecek.</p>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <h3>Bu kulübün arkasında kim var?</h3>
-                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
-                        </div>
-                        <div class="accordion-content">
-                            <p>Bu kulübün arkasında senin gibi üniversite öğrencileri, önünde ise kocaman bir gelecek var. İHH’nın insani yardım tecrübesini, kampüsün genç vizyonuyla birleştiriyoruz. Şeffaf, profesyonel ve tamamen gönüllülük esaslı çalışıyoruz.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="son-vurus">
-        <div class="container">
-            <div class="cta-box" data-aos="zoom-in">
-                <p>Yukarıdaki sorulardan hiçbiri, senin içindeki o 'iyilik yapma' isteğinden daha büyük değil. Şimdi o adımı at, gerisini beraber halledelim.</p>
-                <a href="#rotalar" class="btn-main-cta">Bize Katıl</a>
-            </div>
-        </div>
-    </section>
-
-    <footer id="iletişim">
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo-motto">
-                    <p class="motto">Sınırları aşan iyiliğin bir parçası ol.</p>
-                </div>
-                <div class="footer-logos">
-                    <img src="images/logo-ihh.png" alt="İHH Logosu"> <img src="images/logo.png" alt="Kulüp Logosu"> </div>
-                <div class="social-links">
-                    <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2023 İyiliğin Geleceği Kampüs Kulübü. Tüm Hakları Saklıdır.
-            </div>
+            <p>2026 © İyiliğin Geleceği Kampüs Kulübü</p>
+            <p style="margin-top: 10px;">Vaktini iyiliğe vakfedenlerin buluşma noktası.</p>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 1000, /* Animasyon süresi (ms) */
-            once: true /* Sadece bir kez çalıştır (scroll yaparken) */
-        });
-    </script>
-
-    <script>
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const item = header.parentElement;
-                
-                // Diğer açık panelleri kapatma (Opsiyonel)
-                // document.querySelectorAll('.accordion-item').forEach(i => {
-                //     if (i !== item) i.classList.remove('active');
-                // });
-                
-                // Mevcut paneli aç/kapat
-                item.classList.toggle('active');
-            });
-        });
-    </script>
-
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        AOS.init({ duration: 1000, once: true });
+
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 60 },
                 "color": { "value": "#ffffff" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": true },
-                "size": { "value": 3, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.2, "width": 1 },
-                "move": { "enable": true, "speed": 1, "random": true, "straight": false, "out_mode": "out" }
-            },
-            "interactivity": {
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
-                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } }
-            },
-            "retina_detect": true
+                "opacity": { "value": 0.3, "random": true },
+                "size": { "value": 2, "random": true },
+                "line_linked": { "enable": false },
+                "move": { "enable": true, "speed": 0.5, "direction": "top", "random": true }
+            }
         });
     </script>
 </body>
