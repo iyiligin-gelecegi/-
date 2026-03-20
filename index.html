@@ -3,529 +3,409 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>İHH Kampüs | İyiliğin Geleceği</title>
+    <meta name="theme-color" content="#05050a">
+    <title>İyilik İstasyonu | İHH Kampüs</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Syncopate:wght@700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Syncopate:wght@700&family=Unbounded:wght@400;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- KOZMİK DEĞİŞKENLER (APP-FIRST) --- */
+        /* --- STRATEJİK TASARIM DEĞİŞKENLERİ ---
+           Yazıları devasa tutmak için 'vw' (viewport width) birimini merkeze aldık.
+           Renk paleti: Güven veren Altın, Doğa Yeşili, Samimi Turuncu ve Huzurlu Mavi.
+        */
         :root {
-            --bg-deep: #020205;
-            --bg-card: #0d0d14;
-            --primary-gold: #f1c40f;
+            --space-black: #05050b;
+            --nebula-purple: #6c5ce7;
+            --gold: #f1c40f;
             --pati-orange: #ff9f43;
-            --yesil-emerald: #2ecc71;
-            --askida-blue: #3498db;
-            --text-white: #ffffff;
-            --text-gray: #a0a0b0;
-            --glass: rgba(255, 255, 255, 0.04);
+            --leaf-green: #2ecc71;
+            --kind-blue: #3498db;
+            --glass-white: rgba(255, 255, 255, 0.07);
             --safe-top: env(safe-area-inset-top);
             --safe-bottom: env(safe-area-inset-bottom);
             
-            /* DEVASA OKUNABİLİRLİK ÖLÇEKLERİ */
-            --fs-h1: 9.5vw;
-            --fs-h2: 8vw;
-            --fs-h3: 6.5vw;
-            --fs-body: 5.2vw;
-            --fs-small: 4vw;
+            /* DEVASA PUNTO SİSTEMİ */
+            --f-hero: 11vw;     /* Ana manşet */
+            --f-title: 8.5vw;   /* Kart başlıkları */
+            --f-body: 5.5vw;    /* Açıklama metinleri */
+            --f-button: 5vw;    /* Buton metinleri */
         }
 
-        /* --- TEMEL RESET --- */
+        /* --- GLOBAL AYARLAR --- */
         * {
             margin: 0; padding: 0; box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            font-variant-numeric: tabular-nums;
+            font-kerning: normal;
         }
 
-        html, body {
-            width: 100vw; height: 100vh;
-            background-color: var(--bg-deep);
-            color: var(--text-white);
+        body {
+            background-color: var(--space-black);
+            color: #ffffff;
             font-family: 'Outfit', sans-serif;
-            overflow: hidden; /* Dış scroll yasak, iç scroll serbest */
-            position: fixed; /* IOS Bounce engelleyici */
+            overflow-x: hidden;
+            width: 100vw;
+            /* Arka plan kozmik dokusu */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(241, 196, 15, 0.05) 0%, transparent 40%);
         }
 
-        /* --- SPLASH SCREEN (Açılış Seremonisi) --- */
-        #splash {
+        /* --- QR GİRİŞ SEREMONİSİ (SPLASH) --- */
+        #entry-portal {
             position: fixed; inset: 0;
-            background: radial-gradient(circle at center, #1a1a2e, var(--bg-deep));
-            z-index: 10000;
+            background: var(--space-black);
+            z-index: 9999;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            transition: 1s cubic-bezier(0.8, 0, 0.2, 1);
-        }
-
-        .splash-logo-container {
-            position: relative;
-            width: 140px; height: 140px;
-        }
-
-        .splash-logo {
-            width: 100%; height: 100%;
-            filter: drop-shadow(0 0 30px var(--primary-gold));
-            animation: cosmicPulse 2s infinite ease-in-out;
-        }
-
-        @keyframes cosmicPulse {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.1); filter: brightness(1.3) drop-shadow(0 0 50px var(--primary-gold)); }
-        }
-
-        .splash-text {
-            margin-top: 30px;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 3.5vw;
-            letter-spacing: 6px;
-            color: var(--primary-gold);
             text-align: center;
-            opacity: 0; animation: fadeIn 1s forwards 0.5s;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* --- ANA APP YAPISI --- */
-        .app-shell {
-            height: 100vh;
-            display: flex; flex-direction: column;
-            opacity: 0; transition: 1.5s ease;
+        .portal-circle {
+            width: 180px; height: 180px;
+            border: 4px solid var(--gold);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            position: relative;
+            animation: rotatePortal 10s linear infinite;
         }
 
-        /* --- HEADER (VAKUR VE DEVASA) --- */
+        @keyframes rotatePortal { 100% { transform: rotate(360deg); } }
+
+        .portal-logo {
+            width: 100px; transform: rotate(-360deg); /* Logoyu sabit tutar */
+            animation: logoPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes logoPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+        .portal-text {
+            margin-top: 40px;
+            font-family: 'Unbounded', sans-serif;
+            font-size: 5vw;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+
+        /* --- APP CONTENT STRUCTURE --- */
+        .main-app {
+            display: none; /* Splash bitince açılacak */
+            padding-bottom: 120px;
+        }
+
+        /* --- HEADER (HER ZAMAN OKUNUR) --- */
         header {
             padding: calc(40px + var(--safe-top)) 25px 20px;
-            background: rgba(2, 2, 5, 0.9);
-            backdrop-filter: blur(30px);
-            z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--glass);
+            display: flex; align-items: center; gap: 20px;
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(5, 5, 11, 0.85);
+            backdrop-filter: blur(20px);
         }
 
-        .brand-zone { display: flex; align-items: center; gap: 15px; }
-
-        .app-icon-main {
-            width: 65px; height: 65px;
+        .brand-icon {
+            width: 70px; height: 70px;
             border-radius: 20px;
-            border: 3px solid var(--primary-gold);
-            object-fit: cover;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
         }
 
-        .brand-name h1 {
+        .brand-info h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: 4.5vw; line-height: 1;
+            font-size: 5vw; line-height: 1;
         }
 
-        .brand-name span {
-            font-size: 3.5vw; color: var(--primary-gold);
-            font-weight: 800; letter-spacing: 2px;
+        .brand-info span {
+            font-size: 3.5vw; color: var(--gold);
+            font-weight: 800; text-transform: uppercase;
         }
 
-        .notification-bell {
-            width: 55px; height: 55px;
-            background: var(--glass);
-            border-radius: 18px;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 6vw; position: relative;
+        /* --- HERO: ILK KARŞILAMA --- */
+        .welcome-hero {
+            padding: 40px 25px;
+            text-align: left;
         }
 
-        .notif-dot {
-            position: absolute; top: 12px; right: 12px;
-            width: 14px; height: 14px;
-            background: #ff4757; border-radius: 50%;
-            border: 3px solid var(--bg-deep);
+        .welcome-hero h2 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: var(--f-hero);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* --- KAYDIRILABİLİR İÇERİK --- */
-        .main-viewport {
-            flex: 1;
-            overflow-y: auto;
-            padding-bottom: 140px; /* Navigasyon payı */
-            scroll-behavior: smooth;
+        .welcome-hero p {
+            font-size: var(--f-body);
+            opacity: 0.8;
+            line-height: 1.5;
+            border-left: 8px solid var(--gold);
+            padding-left: 20px;
         }
 
-        /* --- STORIES (Gönüllü Akışı) --- */
-        .story-container {
-            display: flex; gap: 18px;
-            padding: 25px 20px;
-            overflow-x: auto; scrollbar-width: none;
-        }
-        .story-container::-webkit-scrollbar { display: none; }
-
-        .story-ring {
-            min-width: 85px; text-align: center;
+        /* --- KATEGORİ SİSTEMİ (ETKİLEYİCİ KARTLAR) --- */
+        .category-container {
+            padding: 0 20px;
+            display: grid; gap: 35px;
         }
 
-        .ring {
-            width: 85px; height: 85px;
-            border-radius: 50%;
-            padding: 4px;
-            background: linear-gradient(45deg, var(--primary-gold), #ff4757, var(--pati-orange));
-            margin-bottom: 10px;
-        }
-
-        .ring img {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            border: 4px solid var(--bg-deep);
-            object-fit: cover;
-        }
-
-        .story-ring span { font-size: 3.2vw; font-weight: 700; opacity: 0.8; }
-
-        /* --- HERO BANNER (EYLEM ÇAĞRISI) --- */
-        .hero-banner {
-            margin: 10px 20px 30px;
-            padding: 40px 30px;
-            background: linear-gradient(135deg, #161625 0%, #050508 100%);
-            border-radius: 45px;
-            border: 1px solid rgba(255,255,255,0.06);
-            position: relative; overflow: hidden;
-        }
-
-        .hero-banner::before {
-            content: ''; position: absolute; top: -50px; right: -50px;
-            width: 150px; height: 150px;
-            background: var(--primary-gold); filter: blur(90px); opacity: 0.15;
-        }
-
-        .hero-banner h2 {
-            font-size: var(--fs-h1);
-            font-weight: 900; line-height: 1; margin-bottom: 20px;
-        }
-
-        .hero-banner p {
-            font-size: var(--fs-body);
-            opacity: 0.7; margin-bottom: 30px; line-height: 1.4;
-        }
-
-        /* DEVASA AKSİYON BUTONU */
-        .btn-mega {
-            display: flex; align-items: center; justify-content: space-between;
-            width: 100%;
-            padding: 28px 35px;
-            background: var(--primary-gold);
-            color: #000;
-            border-radius: 28px;
-            font-size: 5vw;
-            font-weight: 900;
-            text-transform: uppercase;
-            box-shadow: 0 15px 35px rgba(241, 196, 15, 0.3);
-        }
-
-        /* --- KATEGORİ SİSTEMİ (OKUNAKLI VE GENİŞ) --- */
-        .section-header {
-            padding: 0 25px 20px;
-            display: flex; justify-content: space-between; align-items: flex-end;
-        }
-
-        .section-header h3 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 4.5vw; color: var(--text-gray);
-        }
-
-        .cat-stack { padding: 0 20px; display: grid; gap: 25px; }
-
-        .cat-item {
-            background: var(--bg-card);
-            border-radius: 45px;
-            padding: 40px;
-            border: 2px solid var(--glass);
+        .card-wrapper {
             position: relative;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 50px;
+            padding: 45px 35px;
+            background: var(--card-bg); /* Dinamik atanacak */
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.05);
+            transition: 0.4s ease;
         }
 
-        .cat-item:active { transform: scale(0.96); }
+        .card-wrapper:active { transform: scale(0.96); }
 
-        .cat-icon-box {
-            width: 90px; height: 90px;
-            border-radius: 30px;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 10vw; margin-bottom: 30px;
+        .card-icon {
+            font-size: 15vw;
+            margin-bottom: 30px;
+            display: block;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
         }
 
-        .cat-item h4 {
-            font-size: var(--fs-h2);
-            margin-bottom: 15px;
-            font-weight: 800;
+        .card-wrapper h3 {
+            font-family: 'Unbounded', sans-serif;
+            font-size: var(--f-title);
+            margin-bottom: 20px;
+            line-height: 1;
         }
 
-        .cat-item p {
-            font-size: var(--fs-body);
+        .card-wrapper p {
+            font-size: var(--f-body);
             line-height: 1.6;
-            color: var(--text-gray);
-            margin-bottom: 35px;
+            margin-bottom: 40px;
+            font-weight: 400;
         }
 
-        /* KATEGORİ ÖZEL RENKLERİ */
-        .cat-pati { border-left: 12px solid var(--pati-orange); }
-        .cat-pati .cat-icon-box { background: rgba(255, 159, 67, 0.15); color: var(--pati-orange); }
-        
-        .cat-yesil { border-left: 12px solid var(--yesil-emerald); }
-        .cat-yesil .cat-icon-box { background: rgba(46, 204, 113, 0.15); color: var(--yesil-emerald); }
-
-        .cat-askida { border-left: 12px solid var(--askida-blue); }
-        .cat-askida .cat-icon-box { background: rgba(52, 152, 219, 0.15); color: var(--askida-blue); }
-
-        .cat-action-btn {
-            padding: 22px 40px;
-            border-radius: 22px;
-            font-size: 4.5vw;
-            font-weight: 800;
-            display: inline-flex;
-            align-items: center; gap: 12px;
-            background: var(--glass);
-            color: #fff;
+        /* --- AKSİYON BUTONLARI (DEVASA VE GÜVENLİ) --- */
+        .action-btn {
+            display: flex; align-items: center; justify-content: center;
+            gap: 15px;
+            width: 100%;
+            padding: 28px;
+            border-radius: 30px;
+            background: #ffffff;
+            color: #000;
             text-decoration: none;
+            font-weight: 900;
+            font-size: var(--f-button);
+            text-transform: uppercase;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
 
-        /* --- İSTATİSTİK PANALİ --- */
-        .stats-grid {
+        /* --- RENK TEMALARI --- */
+        .pati-theme { background: linear-gradient(135deg, #2d1b0d 0%, #121212 100%); border-top: 15px solid var(--pati-orange); }
+        .pati-theme h3 { color: var(--pati-orange); }
+        
+        .yesil-theme { background: linear-gradient(135deg, #0d2d1b 0%, #121212 100%); border-top: 15px solid var(--leaf-green); }
+        .yesil-theme h3 { color: var(--leaf-green); }
+
+        .askida-theme { background: linear-gradient(135deg, #0d1b2d 0%, #121212 100%); border-top: 15px solid var(--kind-blue); }
+        .askida-theme h3 { color: var(--kind-blue); }
+
+        /* --- CANLI SAYAÇLAR --- */
+        .live-stats {
+            margin: 50px 20px;
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: 20px; padding: 40px 20px;
+            gap: 20px;
         }
 
-        .stat-card {
-            background: var(--glass);
-            padding: 30px; border-radius: 35px;
+        .stat-box {
+            background: var(--glass-white);
+            padding: 30px;
+            border-radius: 35px;
             text-align: center;
         }
 
-        .stat-card h5 { font-size: 8vw; color: var(--primary-gold); margin-bottom: 5px; }
-        .stat-card span { font-size: 3.5vw; color: var(--text-gray); font-weight: 700; text-transform: uppercase; }
+        .stat-box h4 { font-size: 10vw; color: var(--gold); font-family: 'Unbounded'; }
+        .stat-box span { font-size: 3.5vw; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; }
 
-        /* --- MOTTO (DEV BÖLÜM) --- */
-        .motto-zone {
-            padding: 80px 30px; text-align: center;
-            background: linear-gradient(to bottom, transparent, #080810);
+        /* --- MOTTO BÖLÜMÜ (FINAL DOKUNUŞU) --- */
+        .motto-final {
+            padding: 80px 30px;
+            text-align: center;
+            background: linear-gradient(to bottom, transparent, rgba(108, 92, 231, 0.1));
         }
 
-        .motto-zone h6 {
+        .motto-final h5 {
             font-family: 'Syncopate', sans-serif;
-            font-size: 3.5vw; color: var(--primary-gold);
-            margin-bottom: 20px; letter-spacing: 10px;
+            font-size: 4vw; color: var(--gold);
+            margin-bottom: 15px; letter-spacing: 8px;
         }
 
-        .motto-zone h2 {
+        .motto-final h2 {
+            font-family: 'Unbounded', sans-serif;
             font-size: 10vw; font-weight: 900;
-            line-height: 1; letter-spacing: -2px;
+            line-height: 1;
         }
 
-        /* --- ALT NAVİGASYON (SABİT) --- */
-        nav.app-nav {
+        /* --- ALT BAR (NAVİGASYON) --- */
+        .bottom-bar {
             position: fixed; bottom: 0; width: 100%;
             height: calc(100px + var(--safe-bottom));
-            background: rgba(5, 5, 10, 0.96);
+            background: rgba(5, 5, 11, 0.96);
             backdrop-filter: blur(40px);
             display: flex; justify-content: space-around; align-items: center;
-            padding: 10px 20px calc(15px + var(--safe-bottom));
-            border-top: 1px solid var(--glass);
+            padding-bottom: var(--safe-bottom);
+            border-top: 1px solid var(--glass-white);
             z-index: 2000;
         }
 
-        .nav-item {
+        .nav-link {
             display: flex; flex-direction: column; align-items: center;
-            gap: 8px; color: #555566; text-decoration: none;
-            transition: 0.3s;
+            gap: 8px; color: #666; text-decoration: none;
         }
 
-        .nav-item.active { color: var(--primary-gold); }
-        .nav-item i { font-size: 8vw; }
-        .nav-item span { font-size: 3.2vw; font-weight: 800; text-transform: uppercase; }
+        .nav-link.active { color: var(--gold); }
+        .nav-link i { font-size: 8vw; }
+        .nav-link span { font-size: 3vw; font-weight: 800; }
 
-        .center-post-btn {
-            width: 75px; height: 75px;
-            background: linear-gradient(45deg, var(--primary-gold), #f39c12);
-            border-radius: 50%;
-            margin-top: -60px;
-            display: flex; justify-content: center; align-items: center;
-            color: #000; font-size: 9vw;
-            box-shadow: 0 15px 30px rgba(241, 196, 15, 0.4);
-            border: 6px solid var(--bg-deep);
-        }
-
-        /* --- MODAL SİSTEMİ --- */
-        .modal-overlay {
+        /* --- MODAL (EKİP DETAY) --- */
+        #team-modal {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.95);
+            background: var(--space-black);
             z-index: 5000; display: none;
-            padding: calc(40px + var(--safe-top)) 20px;
+            padding: calc(40px + var(--safe-top)) 25px;
+            overflow-y: auto;
         }
 
-        .modal-body {
-            height: 100%; overflow-y: auto;
-        }
-
-        .close-btn {
-            width: 60px; height: 60px;
-            background: var(--glass); border-radius: 50%;
+        .close-modal {
+            width: 70px; height: 70px;
+            background: var(--glass-white);
+            border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            font-size: 8vw; margin-bottom: 30px;
+            font-size: 8vw; margin-bottom: 40px;
         }
-
-        /* --- ANİMASYONLAR --- */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
     </style>
 </head>
 <body>
 
-    <div id="splash">
-        <div class="splash-logo-container">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" class="splash-logo" alt="Logo">
+    <div id="entry-portal">
+        <div class="portal-circle">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" class="portal-logo" alt="Logo">
         </div>
-        <div class="splash-text">IYILIK YUKLENIYOR</div>
+        <div class="portal-text">IYILIK İSTASYONU<br>AÇILIYOR...</div>
     </div>
 
-    <div class="app-shell" id="app">
+    <div class="main-app" id="app-content">
         
         <header>
-            <div class="brand-zone">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" class="app-icon-main">
-                <div class="brand-name">
-                    <h1>İHH KAMPÜS</h1>
-                    <span>İYİLİĞİN GELECEĞİ</span>
-                </div>
-            </div>
-            <div class="notification-bell" onclick="vibrateDevice()">
-                <i class="fa-solid fa-bell-concierge"></i>
-                <div class="notif-dot"></div>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" class="brand-icon">
+            <div class="brand-info">
+                <h1>İHH KAMPÜS</h1>
+                <span>HOŞ GELDİN KAHRAMAN</span>
             </div>
         </header>
 
-        <div class="main-viewport">
+        <main>
             
-            <div class="story-container">
-                <div class="story-ring">
-                    <div class="ring"><img src="https://images.unsplash.com/photo-1541516166143-bb47e50e0460?w=200"></div>
-                    <span>Pati Canlı</span>
-                </div>
-                <div class="story-ring">
-                    <div class="ring" style="background: var(--yesil-emerald);"><img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=200"></div>
-                    <span>Fidanlık</span>
-                </div>
-                <div class="story-ring">
-                    <div class="ring" style="background: var(--askida-blue);"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=200"></div>
-                    <span>Askıda</span>
-                </div>
-                <div class="story-ring">
-                    <div class="ring"><img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=200"></div>
-                    <span>Saha</span>
-                </div>
-            </div>
+            <section class="welcome-hero" data-aos="fade-right">
+                <h2>SENİNLE<br>TAMAMIZ.</h2>
+                <p>QR kodu okuttun ve iyilik evrenine giriş yaptın. Kampüste değiştirecek çok şey, dokunacak çok hayat var.</p>
+            </section>
 
-            <div class="hero-banner" data-aos="zoom-in">
-                <h2>BİRLİKTE<br><span style="color: var(--primary-gold);">GÜÇLÜYÜZ.</span></h2>
-                <p>Kampüsünde iyiliği yaymak için bir adım at. Bugün bir canın kahramanı olabilirsin.</p>
-                <div class="btn-mega" onclick="openModal('mission')">
-                    GÖREVE BAŞLA <i class="fa-solid fa-bolt-lightning"></i>
-                </div>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card" data-aos="fade-up">
-                    <h5 id="count1">0</h5>
-                    <span>GÖNÜLLÜ</span>
-                </div>
-                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-                    <h5 id="count2">0</h5>
-                    <span>İYİLİK PUANI</span>
-                </div>
-            </div>
-
-            <div class="section-header">
-                <h3>EKİPLERİMİZ</h3>
-                <span style="font-size: 3.5vw; color: var(--primary-gold);">HEPSİNİ GÖR</span>
-            </div>
-
-            <div class="cat-stack">
+            <div class="category-container">
                 
-                <div class="cat-item cat-pati" data-aos="fade-left">
-                    <div class="cat-icon-box"><i class="fa-solid fa-paw"></i></div>
-                    <h4>Pati Ekibi</h4>
-                    <p>Hoş geldin! 🐾 Kampüsteki tüylü dostlarımızın artık bir kahramanı daha var. Burada sadece mama dağıtmıyoruz, onların yaşam hakkını savunuyoruz. Yakındaki besleme saati için beklemede kal!</p>
-                    <a href="javascript:void(0)" class="cat-action-btn" onclick="openModal('pati')">
-                        BİZE KATIL <i class="fa-solid fa-chevron-right"></i>
+                <div class="card-wrapper pati-theme" data-aos="fade-up">
+                    <i class="fa-solid fa-paw card-icon"></i>
+                    <h3>PATİ EKİBİ</h3>
+                    <p>Kampüsteki tüylü dostlarımızın artık bir kahramanı daha var. Burada sadece mama dağıtmıyoruz, onların yaşam hakkını savunuyoruz.</p>
+                    <a href="javascript:void(0)" class="action-btn" onclick="openTeam('pati')">
+                        EKİBE IŞINLAN <i class="fa-solid fa-bolt"></i>
                     </a>
                 </div>
 
-                <div class="cat-item cat-yesil" data-aos="fade-right">
-                    <div class="cat-icon-box"><i class="fa-solid fa-leaf"></i></div>
-                    <h4>Yeşil Adım</h4>
-                    <p>Selam doğasever! 🌱 Geleceğe nefes olacak ekibe dahil oldun. Çok yakında toprağa dokunacağımız, kampüsü yeşerteceğimiz etkinliklerde görüşmek üzere!</p>
-                    <a href="javascript:void(0)" class="cat-action-btn" onclick="openModal('yesil')">
-                        FİDAN SAHİPLEN <i class="fa-solid fa-chevron-right"></i>
+                <div class="card-wrapper yesil-theme" data-aos="fade-up">
+                    <i class="fa-solid fa-seedling card-icon"></i>
+                    <h3>YEŞİL ADIM</h3>
+                    <p>Selam doğasever! 🌱 Geleceğe nefes olacak ekibe dahil oldun. Çok yakında toprağa dokunacağımız etkinliklerde görüşmek üzere!</p>
+                    <a href="javascript:void(0)" class="action-btn" onclick="openTeam('yesil')">
+                        TOPRAĞA DOKUN <i class="fa-solid fa-leaf"></i>
                     </a>
                 </div>
 
-                <div class="cat-item cat-askida" data-aos="fade-left">
-                    <div class="cat-icon-box"><i class="fa-solid fa-hand-holding-heart"></i></div>
-                    <h4>Askıda İyilik</h4>
-                    <p>Hoş geldin! 🤝 Paylaşmanın ve dayanışmanın merkezindesin. Küçük bir dokunuşla büyük farklar yaratacağımız projelerimiz için doğru yerdesin.</p>
-                    <a href="javascript:void(0)" class="cat-action-btn" onclick="openModal('askida')">
-                        PAYLAŞMAYA BAŞLA <i class="fa-solid fa-chevron-right"></i>
+                <div class="card-wrapper askida-theme" data-aos="fade-up">
+                    <i class="fa-solid fa-hand-holding-heart card-icon"></i>
+                    <h3>ASKIDA İYİLİK</h3>
+                    <p>Paylaşmanın ve dayanışmanın merkezindesin. Küçük bir dokunuşla büyük farklar yaratacağımız projelerimiz için doğru yerdesin.</p>
+                    <a href="javascript:void(0)" class="action-btn" onclick="openTeam('askida')">
+                        EL UZAT <i class="fa-solid fa-handshake"></i>
                     </a>
                 </div>
 
             </div>
 
-            <div class="motto-zone" data-aos="fade-up">
-                <h6>MİSYON</h6>
-                <h2>İYİLİK SINIR<br><span style="color: var(--primary-gold);">TANIMAZ.</span></h2>
-                <p style="margin-top: 20px; opacity: 0.4; font-size: 4vw;">İHH Kampüs Mobil Deneyimi 2026</p>
+            <div class="live-stats">
+                <div class="stat-box" data-aos="zoom-in">
+                    <h4 id="count1">0</h4>
+                    <span>AKTİF GÖNÜLLÜ</span>
+                </div>
+                <div class="stat-box" data-aos="zoom-in" data-aos-delay="100">
+                    <h4 id="count2">0</h4>
+                    <span>TOPLAM İYİLİK</span>
+                </div>
             </div>
 
-        </div>
-
-        <nav class="app-nav">
-            <a href="#" class="nav-item active">
-                <i class="fa-solid fa-house-chimney-window"></i>
-                <span>AKIS</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-earth-americas"></i>
-                <span>KESFET</span>
-            </a>
-            <div class="center-post-btn" onclick="openModal('plus')">
-                <i class="fa-solid fa-plus"></i>
+            <div class="motto-final" data-aos="fade-up">
+                <h5>VİZYONUMUZ</h5>
+                <h2>İYİLİK SINIR<br><span style="color: var(--gold);">TANIMAZ.</span></h2>
             </div>
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-award"></i>
-                <span>ROZET</span>
+
+        </main>
+
+        <nav class="bottom-bar">
+            <a href="#" class="nav-link active">
+                <i class="fa-solid fa-house"></i>
+                <span>KEŞFET</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fa-solid fa-user-astronaut"></i>
-                <span>PROFIL</span>
+            <a href="#" class="nav-link">
+                <i class="fa-solid fa-map-pin"></i>
+                <span>SAHA</span>
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fa-solid fa-id-badge"></i>
+                <span>KARTIM</span>
             </a>
         </nav>
     </div>
 
-    <div id="modal" class="modal-overlay">
-        <div class="modal-body" id="modal-content">
-            </div>
+    <div id="team-modal">
+        <div class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+        <div id="modal-content"></div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // AOS Başlat
         AOS.init({ duration: 1000, once: true });
 
-        // Splash Logic
+        // Splash ve Giriş Kontrolü
         window.addEventListener('load', () => {
             setTimeout(() => {
-                const splash = document.getElementById('splash');
-                const app = document.getElementById('app');
-                splash.style.transform = 'translateY(-100%)';
-                app.style.opacity = '1';
+                const splash = document.getElementById('entry-portal');
+                const content = document.getElementById('app-content');
                 
-                // Count Animation
-                animateCount('count1', 0, 1420, 2500);
-                animateCount('count2', 0, 8650, 2500);
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    content.style.display = 'block';
+                    // Sayaçları Başlat
+                    animateValue("count1", 0, 1240, 2000);
+                    animateValue("count2", 0, 5820, 2000);
+                }, 1000);
             }, 3000);
         });
 
-        // Counter Function
-        function animateCount(id, start, end, duration) {
+        // Sayaç Animasyonu
+        function animateValue(id, start, end, duration) {
             let obj = document.getElementById(id);
             let range = end - start;
             let current = start;
@@ -533,67 +413,69 @@
             let timer = setInterval(() => {
                 current += increment;
                 if (current >= end) {
-                    obj.textContent = end.toLocaleString();
+                    obj.innerHTML = end.toLocaleString();
                     clearInterval(timer);
                 } else {
-                    obj.textContent = current.toLocaleString();
+                    obj.innerHTML = current.toLocaleString();
                 }
             }, 20);
         }
 
-        // Modal Functionality
-        function openModal(type) {
-            vibrateDevice();
-            const modal = document.getElementById('modal');
+        // Ekip Detaylarını Aç (QR'dan giren öğrenciyi etkileyecek metinler)
+        function openTeam(team) {
+            const modal = document.getElementById('team-modal');
             const content = document.getElementById('modal-content');
             modal.style.display = 'block';
+            window.scrollTo(0,0);
 
-            let html = `<div class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>`;
+            let data = {
+                pati: {
+                    title: "PATİ EKİBİNE<br>HOŞ GELDİN!",
+                    color: "var(--pati-orange)",
+                    text: "Kampüsteki tüylü dostlarımızın artık bir kahramanı daha var. Burada sadece mama dağıtmıyoruz, onların yaşam hakkını savunuyoruz. Yakındaki besleme saati için beklemede kal!",
+                    link: "https://chat.whatsapp.com/ornek-pati-grubu"
+                },
+                yesil: {
+                    title: "YEŞİL ADIMA<br>HOŞ GELDİN!",
+                    color: "var(--leaf-green)",
+                    text: "Selam doğasever! 🌱 Geleceğe nefes olacak ekibe dahil oldun. Çok yakında toprağa dokunacağımız, kampüsü yeşerteceğimiz etkinliklerde görüşmek üzere!",
+                    link: "https://chat.whatsapp.com/ornek-yesil-grubu"
+                },
+                askida: {
+                    title: "ASKIDA İYİLİĞE<br>HOŞ GELDİN!",
+                    color: "var(--kind-blue)",
+                    text: "Hoş geldin! 🤝 Paylaşmanın ve dayanışmanın merkezindesin. Küçük bir dokunuşla büyük farklar yaratacağımız projelerimiz için doğru yerdesin.",
+                    link: "https://chat.whatsapp.com/ornek-askida-grubu"
+                }
+            };
 
-            if(type === 'pati') {
-                html += `
-                    <h2 style="font-size:12vw; color:var(--pati-orange); font-weight:900;">PATI DOSTU 🐾</h2>
-                    <p style="font-size:6vw; margin:30px 0; line-height:1.4;">Şu an kampüste besleme bekleyen 12 nokta var. Ekibe katılarak bugünkü rotanı alabilirsin.</p>
-                    <div style="background:var(--glass); padding:30px; border-radius:30px; margin-bottom:30px;">
-                        <h4 style="color:var(--primary-gold);">GÜNLÜK GÖREV:</h4>
-                        <p>Kuzey kantin arkasındaki mama kaplarını tazele.</p>
-                    </div>
-                    <button class="btn-mega" style="background:var(--pati-orange); color:#fff;">GÖREVİ ÜSTLEN</button>
-                `;
-            } else if(type === 'yesil') {
-                html += `
-                    <h2 style="font-size:12vw; color:var(--yesil-emerald); font-weight:900;">YEŞİL ADIM 🌱</h2>
-                    <p style="font-size:6vw; margin:30px 0; line-height:1.4;">Bu ay kampüse tam 250 yeni fidan dikme hedefimiz var. Bir fidanın koruyucusu olmaya ne dersin?</p>
-                    <button class="btn-mega" style="background:var(--yesil-emerald); color:#fff;">FİDAN BAĞIŞLA</button>
-                `;
-            } else if(type === 'plus') {
-                html += `
-                    <h2 style="font-size:10vw; font-family:'Syncopate';">YENİ İYİLİK HAREKETİ</h2>
-                    <div style="margin-top:40px;">
-                        <input type="text" placeholder="Proje Başlığı" style="width:100%; padding:25px; background:var(--glass); border:none; border-radius:20px; color:white; font-size:5vw; margin-bottom:20px;">
-                        <textarea placeholder="Dünyayı nasıl değiştireceksin?" style="width:100%; padding:25px; background:var(--glass); border:none; border-radius:20px; color:white; font-size:5vw; height:250px;"></textarea>
-                        <button class="btn-mega" style="margin-top:30px;">HAREKETİ BAŞLAT</button>
-                    </div>
-                `;
-            } else {
-                html += `<h2 style="font-size:10vw;">YAKINDA...</h2><p style="font-size:6vw; margin-top:20px;">Bu özellik galaksi turundan dönünce aktif olacak.</p>`;
-            }
-
-            content.innerHTML = html;
+            const selected = data[team];
+            content.innerHTML = `
+                <h2 style="font-family:'Unbounded'; font-size:12vw; color:${selected.color}; line-height:1; margin-bottom:30px;">${selected.title}</h2>
+                <p style="font-size:6vw; line-height:1.5; opacity:0.9; margin-bottom:40px;">${selected.text}</p>
+                <div style="background:var(--glass-white); padding:30px; border-radius:30px; margin-bottom:40px;">
+                    <h4 style="color:var(--gold); font-size:5vw; margin-bottom:10px;">NASIL ÇALIŞIRIZ?</h4>
+                    <ul style="font-size:4.5vw; list-style:none; opacity:0.7;">
+                        <li style="margin-bottom:10px;">• Haftalık saha görevleri</li>
+                        <li style="margin-bottom:10px;">• Ortak karar mekanizması</li>
+                        <li>• Sınırsız dayanışma</li>
+                    </ul>
+                </div>
+                <a href="${selected.link}" target="_blank" class="action-btn" style="background:${selected.color}; color:white;">
+                    WHATSAPP GRUBUNA KATIL
+                </a>
+                <p style="text-align:center; margin-top:30px; font-size:3.5vw; opacity:0.5;">Harekete geçmek için butona tıkla.</p>
+            `;
         }
 
         function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+            document.getElementById('team-modal').style.display = 'none';
         }
 
-        function vibrateDevice() {
-            if (navigator.vibrate) navigator.vibrate(20);
-        }
-
-        // Haptic Feedback for all buttons
-        document.querySelectorAll('.cat-item, .nav-item, .btn-mega, .app-btn').forEach(el => {
-            el.addEventListener('touchstart', () => vibrateDevice());
-        });
+        // Dokunmatik Geri Bildirim
+        document.addEventListener('touchstart', () => {
+            if (navigator.vibrate) navigator.vibrate(5);
+        }, false);
     </script>
 </body>
 </html>
