@@ -4,478 +4,210 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#05050a">
-    <title>İyilik İstasyonu | İHH Kampüs</title>
+    <title>İyiliğin Geleceği | Çukurova Üniversitesi</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Syncopate:wght@700&family=Unbounded:wght@400;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- STRATEJİK TASARIM DEĞİŞKENLERİ ---
-           Yazıları devasa tutmak için 'vw' (viewport width) birimini merkeze aldık.
-           Renk paleti: Güven veren Altın, Doğa Yeşili, Samimi Turuncu ve Huzurlu Mavi.
-        */
         :root {
             --space-black: #05050b;
-            --nebula-purple: #6c5ce7;
+            --tech-purple: #a29bfe;
             --gold: #f1c40f;
-            --pati-orange: #ff9f43;
-            --leaf-green: #2ecc71;
-            --kind-blue: #3498db;
+            --action-blue: #0984e3;
+            --success-green: #00b894;
             --glass-white: rgba(255, 255, 255, 0.07);
-            --safe-top: env(safe-area-inset-top);
-            --safe-bottom: env(safe-area-inset-bottom);
-            
-            /* DEVASA PUNTO SİSTEMİ */
-            --f-hero: 11vw;     /* Ana manşet */
-            --f-title: 8.5vw;   /* Kart başlıkları */
-            --f-body: 5.5vw;    /* Açıklama metinleri */
-            --f-button: 5vw;    /* Buton metinleri */
+            --f-hero: 10vw;
+            --f-title: 8vw;
+            --f-body: 4.5vw;
         }
 
-        /* --- GLOBAL AYARLAR --- */
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-kerning: normal;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--space-black); color: #fff; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
 
-        body {
-            background-color: var(--space-black);
-            color: #ffffff;
-            font-family: 'Outfit', sans-serif;
-            overflow-x: hidden;
-            width: 100vw;
-            /* Arka plan kozmik dokusu */
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(241, 196, 15, 0.05) 0%, transparent 40%);
-        }
-
-        /* --- QR GİRİŞ SEREMONİSİ (SPLASH) --- */
+        /* --- SPLASH SCREEN --- */
         #entry-portal {
-            position: fixed; inset: 0;
-            background: var(--space-black);
-            z-index: 9999;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            text-align: center;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed; inset: 0; background: var(--space-black); z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1.2s ease;
         }
-
         .portal-circle {
-            width: 180px; height: 180px;
-            border: 4px solid var(--gold);
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            position: relative;
-            animation: rotatePortal 10s linear infinite;
+            width: 150px; height: 150px; border: 3px solid var(--tech-purple);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            animation: rotate 8s linear infinite;
         }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+        .portal-text { margin-top: 30px; font-family: 'Unbounded'; color: var(--tech-purple); text-align: center; font-size: 4vw; letter-spacing: 3px; }
 
-        @keyframes rotatePortal { 100% { transform: rotate(360deg); } }
-
-        .portal-logo {
-            width: 100px; transform: rotate(-360deg); /* Logoyu sabit tutar */
-            animation: logoPulse 2s infinite ease-in-out;
-        }
-
-        @keyframes logoPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-
-        .portal-text {
-            margin-top: 40px;
-            font-family: 'Unbounded', sans-serif;
-            font-size: 5vw;
-            letter-spacing: 2px;
-            color: var(--gold);
-        }
-
-        /* --- APP CONTENT STRUCTURE --- */
-        .main-app {
-            display: none; /* Splash bitince açılacak */
-            padding-bottom: 120px;
-        }
-
-        /* --- HEADER (HER ZAMAN OKUNUR) --- */
+        /* --- APP STRUCTURE --- */
         header {
-            padding: calc(40px + var(--safe-top)) 25px 20px;
-            display: flex; align-items: center; gap: 20px;
-            position: sticky; top: 0; z-index: 1000;
-            background: rgba(5, 5, 11, 0.85);
-            backdrop-filter: blur(20px);
+            padding: 50px 25px 20px; position: sticky; top: 0; z-index: 1000;
+            background: rgba(5, 5, 11, 0.85); backdrop-filter: blur(20px);
+            display: flex; align-items: center; gap: 15px;
         }
-
-        .brand-icon {
-            width: 70px; height: 70px;
-            border-radius: 20px;
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
-        }
-
-        .brand-info h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 5vw; line-height: 1;
-        }
-
-        .brand-info span {
-            font-size: 3.5vw; color: var(--gold);
-            font-weight: 800; text-transform: uppercase;
-        }
-
-        /* --- HERO: ILK KARŞILAMA --- */
-        .welcome-hero {
-            padding: 40px 25px;
-            text-align: left;
-        }
-
-        .welcome-hero h2 {
-            font-family: 'Unbounded', sans-serif;
-            font-size: var(--f-hero);
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #fff, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .welcome-hero p {
-            font-size: var(--f-body);
-            opacity: 0.8;
-            line-height: 1.5;
-            border-left: 8px solid var(--gold);
-            padding-left: 20px;
-        }
-
-        /* --- KATEGORİ SİSTEMİ (ETKİLEYİCİ KARTLAR) --- */
-        .category-container {
-            padding: 0 20px;
-            display: grid; gap: 35px;
-        }
-
-        .card-wrapper {
-            position: relative;
-            border-radius: 50px;
-            padding: 45px 35px;
-            background: var(--card-bg); /* Dinamik atanacak */
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.05);
-            transition: 0.4s ease;
-        }
-
-        .card-wrapper:active { transform: scale(0.96); }
-
-        .card-icon {
-            font-size: 15vw;
-            margin-bottom: 30px;
-            display: block;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
-        }
-
-        .card-wrapper h3 {
-            font-family: 'Unbounded', sans-serif;
-            font-size: var(--f-title);
-            margin-bottom: 20px;
-            line-height: 1;
-        }
-
-        .card-wrapper p {
-            font-size: var(--f-body);
-            line-height: 1.6;
-            margin-bottom: 40px;
-            font-weight: 400;
-        }
-
-        /* --- AKSİYON BUTONLARI (DEVASA VE GÜVENLİ) --- */
-        .action-btn {
-            display: flex; align-items: center; justify-content: center;
-            gap: 15px;
-            width: 100%;
-            padding: 28px;
-            border-radius: 30px;
-            background: #ffffff;
-            color: #000;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: var(--f-button);
-            text-transform: uppercase;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        /* --- RENK TEMALARI --- */
-        .pati-theme { background: linear-gradient(135deg, #2d1b0d 0%, #121212 100%); border-top: 15px solid var(--pati-orange); }
-        .pati-theme h3 { color: var(--pati-orange); }
+        .logo-box { width: 50px; height: 50px; background: var(--tech-purple); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; }
         
-        .yesil-theme { background: linear-gradient(135deg, #0d2d1b 0%, #121212 100%); border-top: 15px solid var(--leaf-green); }
-        .yesil-theme h3 { color: var(--leaf-green); }
+        .hero { padding: 40px 25px; }
+        .hero h2 { font-family: 'Unbounded'; font-size: var(--f-hero); line-height: 1; margin-bottom: 20px; background: linear-gradient(to right, #fff, var(--tech-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: var(--f-body); opacity: 0.8; border-left: 4px solid var(--tech-purple); padding-left: 15px; }
 
-        .askida-theme { background: linear-gradient(135deg, #0d1b2d 0%, #121212 100%); border-top: 15px solid var(--kind-blue); }
-        .askida-theme h3 { color: var(--kind-blue); }
+        .section-title { padding: 20px 25px; font-family: 'Syncopate'; font-size: 4vw; color: var(--gold); }
 
-        /* --- CANLI SAYAÇLAR --- */
-        .live-stats {
-            margin: 50px 20px;
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        /* --- KARTLAR --- */
+        .grid-container { padding: 0 20px; display: grid; gap: 25px; }
+        .info-card { 
+            padding: 30px; border-radius: 35px; background: var(--glass-white); 
+            border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
+        }
+        .info-card i { font-size: 10vw; color: var(--tech-purple); margin-bottom: 20px; }
+        .info-card h3 { font-family: 'Unbounded'; font-size: 6vw; margin-bottom: 10px; }
+        .info-card p { font-size: 4vw; opacity: 0.7; line-height: 1.4; }
+
+        .btn-main { 
+            margin-top: 20px; display: inline-flex; align-items: center; gap: 10px;
+            padding: 15px 25px; background: #fff; color: #000; border-radius: 20px;
+            text-decoration: none; font-weight: 800; font-size: 3.5vw; text-transform: uppercase;
         }
 
-        .stat-box {
-            background: var(--glass-white);
-            padding: 30px;
-            border-radius: 35px;
-            text-align: center;
+        /* --- MODAL --- */
+        #data-modal {
+            position: fixed; inset: 0; background: var(--space-black); z-index: 5000;
+            display: none; padding: 60px 25px; overflow-y: auto;
         }
+        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 8vw; color: var(--gold); }
 
-        .stat-box h4 { font-size: 10vw; color: var(--gold); font-family: 'Unbounded'; }
-        .stat-box span { font-size: 3.5vw; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; }
-
-        /* --- MOTTO BÖLÜMÜ (FINAL DOKUNUŞU) --- */
-        .motto-final {
-            padding: 80px 30px;
-            text-align: center;
-            background: linear-gradient(to bottom, transparent, rgba(108, 92, 231, 0.1));
-        }
-
-        .motto-final h5 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 4vw; color: var(--gold);
-            margin-bottom: 15px; letter-spacing: 8px;
-        }
-
-        .motto-final h2 {
-            font-family: 'Unbounded', sans-serif;
-            font-size: 10vw; font-weight: 900;
-            line-height: 1;
-        }
-
-        /* --- ALT BAR (NAVİGASYON) --- */
-        .bottom-bar {
-            position: fixed; bottom: 0; width: 100%;
-            height: calc(100px + var(--safe-bottom));
-            background: rgba(5, 5, 11, 0.96);
-            backdrop-filter: blur(40px);
-            display: flex; justify-content: space-around; align-items: center;
-            padding-bottom: var(--safe-bottom);
+        .nav-bar {
+            position: fixed; bottom: 0; width: 100%; height: 80px;
+            background: rgba(5,5,11,0.95); display: flex; justify-content: space-around; align-items: center;
             border-top: 1px solid var(--glass-white);
-            z-index: 2000;
         }
-
-        .nav-link {
-            display: flex; flex-direction: column; align-items: center;
-            gap: 8px; color: #666; text-decoration: none;
-        }
-
-        .nav-link.active { color: var(--gold); }
-        .nav-link i { font-size: 8vw; }
-        .nav-link span { font-size: 3vw; font-weight: 800; }
-
-        /* --- MODAL (EKİP DETAY) --- */
-        #team-modal {
-            position: fixed; inset: 0;
-            background: var(--space-black);
-            z-index: 5000; display: none;
-            padding: calc(40px + var(--safe-top)) 25px;
-            overflow-y: auto;
-        }
-
-        .close-modal {
-            width: 70px; height: 70px;
-            background: var(--glass-white);
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 8vw; margin-bottom: 40px;
-        }
-
+        .nav-item { color: #666; text-decoration: none; text-align: center; font-size: 3vw; font-weight: 700; }
+        .nav-item.active { color: var(--tech-purple); }
+        .nav-item i { display: block; font-size: 6vw; margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
     <div id="entry-portal">
-        <div class="portal-circle">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" class="portal-logo" alt="Logo">
-        </div>
-        <div class="portal-text">IYILIK İSTASYONU<br>AÇILIYOR...</div>
+        <div class="portal-circle"><i class="fa-solid fa-microchip" style="font-size: 50px; color: var(--tech-purple);"></i></div>
+        <div class="portal-text">İYİLİĞİN GELECEĞİ<br>YÜKLENİYOR...</div>
     </div>
 
-    <div class="main-app" id="app-content">
-        
+    <div id="main-app" style="display: none; padding-bottom: 100px;">
         <header>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNo_rhA6kI8x2IwHZKZdJbtjIqTzq3qaWK-3UlCERBNQ&s" class="brand-icon">
-            <div class="brand-info">
-                <h1>İHH KAMPÜS</h1>
-                <span>HOŞ GELDİN KAHRAMAN</span>
+            <div class="logo-box">İG</div>
+            <div>
+                <h1 style="font-size: 4.5vw; font-family: 'Syncopate';">İYİLİĞİN GELECEĞİ</h1>
+                <span style="font-size: 3vw; color: var(--gold); font-weight: 800;">ÇUKUROVA ÜNİVERSİTESİ</span>
             </div>
         </header>
 
-        <main>
-            
-            <section class="welcome-hero" data-aos="fade-right">
-                <h2>SENİNLE<br>TAMAMIZ.</h2>
-                <p>QR kodu okuttun ve iyilik evrenine giriş yaptın. Kampüste değiştirecek çok şey, dokunacak çok hayat var.</p>
-            </section>
+        <section class="hero" data-aos="fade-up">
+            <h2>TEKNOLOJİ İLE<br>DEĞİŞİM.</h2>
+            <p>Çukurova Üniversitesi bünyesinde, teknolojiyi sosyal etki aracı olarak kullanarak toplumsal sorunlara yenilikçi çözümler üretiyoruz. [cite: 5]</p>
+        </section>
 
-            <div class="category-container">
-                
-                <div class="card-wrapper pati-theme" data-aos="fade-up">
-                    <i class="fa-solid fa-paw card-icon"></i>
-                    <h3>PATİ EKİBİ</h3>
-                    <p>Kampüsteki tüylü dostlarımızın artık bir kahramanı daha var. Burada sadece mama dağıtmıyoruz, onların yaşam hakkını savunuyoruz.</p>
-                    <a href="javascript:void(0)" class="action-btn" onclick="openTeam('pati')">
-                        EKİBE IŞINLAN <i class="fa-solid fa-bolt"></i>
-                    </a>
-                </div>
-
-                <div class="card-wrapper yesil-theme" data-aos="fade-up">
-                    <i class="fa-solid fa-seedling card-icon"></i>
-                    <h3>YEŞİL ADIM</h3>
-                    <p>Selam doğasever! 🌱 Geleceğe nefes olacak ekibe dahil oldun. Çok yakında toprağa dokunacağımız etkinliklerde görüşmek üzere!</p>
-                    <a href="javascript:void(0)" class="action-btn" onclick="openTeam('yesil')">
-                        TOPRAĞA DOKUN <i class="fa-solid fa-leaf"></i>
-                    </a>
-                </div>
-
-                <div class="card-wrapper askida-theme" data-aos="fade-up">
-                    <i class="fa-solid fa-hand-holding-heart card-icon"></i>
-                    <h3>ASKIDA İYİLİK</h3>
-                    <p>Paylaşmanın ve dayanışmanın merkezindesin. Küçük bir dokunuşla büyük farklar yaratacağımız projelerimiz için doğru yerdesin.</p>
-                    <a href="javascript:void(0)" class="action-btn" onclick="openTeam('askida')">
-                        EL UZAT <i class="fa-solid fa-handshake"></i>
-                    </a>
-                </div>
-
+        <div class="section-title">FAALİYET ALANLARIMIZ [cite: 6]</div>
+        <div class="grid-container">
+            <div class="info-card" data-aos="fade-right">
+                <i class="fa-solid fa-code-branch"></i>
+                <h3>Teknoloji & AR-GE</h3>
+                <p>Ulusal ve uluslararası teknoloji yarışmaları için projeler hazırlıyor, yenilikçi atölyeler düzenliyoruz. [cite: 11, 13]</p>
             </div>
 
-            <div class="live-stats">
-                <div class="stat-box" data-aos="zoom-in">
-                    <h4 id="count1">0</h4>
-                    <span>AKTİF GÖNÜLLÜ</span>
-                </div>
-                <div class="stat-box" data-aos="zoom-in" data-aos-delay="100">
-                    <h4 id="count2">0</h4>
-                    <span>TOPLAM İYİLİK</span>
-                </div>
+            <div class="info-card" data-aos="fade-left">
+                <i class="fa-solid fa-earth-americas"></i>
+                <h3>Sosyal Etki</h3>
+                <p>Toplumsal duyarlılık ve dayanışma projeleri ile kampüsümüzde sürdürülebilir bir gelecek inşa ediyoruz. [cite: 8, 12]</p>
             </div>
+        </div>
 
-            <div class="motto-final" data-aos="fade-up">
-                <h5>VİZYONUMUZ</h5>
-                <h2>İYİLİK SINIR<br><span style="color: var(--gold);">TANIMAZ.</span></h2>
+        <div class="section-title">KULÜP ÜYELİĞİ</div>
+        <div class="grid-container">
+            <div class="info-card" style="border-left: 10px solid var(--gold);">
+                <h3>KİM OLABİLİR?</h3>
+                <p>Üniversitemize kayıtlı tüm ön lisans, lisans ve lisansüstü öğrencileri ailemize katılabilir. </p>
+                <a href="javascript:void(0)" class="btn-main" onclick="openInfo('uyelik')">DETAYLARI GÖR <i class="fa-solid fa-chevron-right"></i></a>
             </div>
+        </div>
 
-        </main>
-
-        <nav class="bottom-bar">
-            <a href="#" class="nav-link active">
-                <i class="fa-solid fa-house"></i>
-                <span>KEŞFET</span>
-            </a>
-            <a href="#" class="nav-link">
-                <i class="fa-solid fa-map-pin"></i>
-                <span>SAHA</span>
-            </a>
-            <a href="#" class="nav-link">
-                <i class="fa-solid fa-id-badge"></i>
-                <span>KARTIM</span>
-            </a>
-        </nav>
+        <div class="section-title">YÖNETİM YAPISI [cite: 18]</div>
+        <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
+            <div class="info-card" style="text-align: center;">
+                <h4 style="font-size: 8vw; color: var(--gold);">5</h4>
+                <span>YÖNETİM KURULU ASİL ÜYE </span>
+            </div>
+            <div class="info-card" style="text-align: center;">
+                <h4 style="font-size: 8vw; color: var(--gold);">2</h4>
+                <span>DENETLEME KURULU ASİL ÜYE </span>
+            </div>
+        </div>
     </div>
 
-    <div id="team-modal">
-        <div class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
-        <div id="modal-content"></div>
+    <div id="data-modal">
+        <div class="close-btn" onclick="closeModal()"><i class="fa-solid fa-circle-xmark"></i></div>
+        <div id="modal-body"></div>
     </div>
+
+    <nav class="nav-bar">
+        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i>ANASAYFA</a>
+        <a href="javascript:void(0)" onclick="openInfo('tuzuk')" class="nav-item"><i class="fa-solid fa-file-contract"></i>TÜZÜK</a>
+        <a href="javascript:void(0)" onclick="openInfo('iletisim')" class="nav-item"><i class="fa-solid fa-paper-plane"></i>KATIL</a>
+    </nav>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // AOS Başlat
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({ duration: 800, once: true });
 
-        // Splash ve Giriş Kontrolü
         window.addEventListener('load', () => {
             setTimeout(() => {
-                const splash = document.getElementById('entry-portal');
-                const content = document.getElementById('app-content');
-                
-                splash.style.opacity = '0';
+                document.getElementById('entry-portal').style.opacity = '0';
                 setTimeout(() => {
-                    splash.style.display = 'none';
-                    content.style.display = 'block';
-                    // Sayaçları Başlat
-                    animateValue("count1", 0, 1240, 2000);
-                    animateValue("count2", 0, 5820, 2000);
+                    document.getElementById('entry-portal').style.display = 'none';
+                    document.getElementById('main-app').style.display = 'block';
                 }, 1000);
-            }, 3000);
+            }, 2000);
         });
 
-        // Sayaç Animasyonu
-        function animateValue(id, start, end, duration) {
-            let obj = document.getElementById(id);
-            let range = end - start;
-            let current = start;
-            let increment = end > start ? Math.ceil(range / (duration / 20)) : -1;
-            let timer = setInterval(() => {
-                current += increment;
-                if (current >= end) {
-                    obj.innerHTML = end.toLocaleString();
-                    clearInterval(timer);
-                } else {
-                    obj.innerHTML = current.toLocaleString();
-                }
-            }, 20);
-        }
-
-        // Ekip Detaylarını Aç (QR'dan giren öğrenciyi etkileyecek metinler)
-        function openTeam(team) {
-            const modal = document.getElementById('team-modal');
-            const content = document.getElementById('modal-content');
+        function openInfo(type) {
+            const modal = document.getElementById('data-modal');
+            const body = document.getElementById('modal-body');
             modal.style.display = 'block';
-            window.scrollTo(0,0);
 
-            let data = {
-                pati: {
-                    title: "PATİ EKİBİNE<br>HOŞ GELDİN!",
-                    color: "var(--pati-orange)",
-                    text: "Kampüsteki tüylü dostlarımızın artık bir kahramanı daha var. Burada sadece mama dağıtmıyoruz, onların yaşam hakkını savunuyoruz. Yakındaki besleme saati için beklemede kal!",
-                    link: "https://chat.whatsapp.com/ornek-pati-grubu"
-                },
-                yesil: {
-                    title: "YEŞİL ADIMA<br>HOŞ GELDİN!",
-                    color: "var(--leaf-green)",
-                    text: "Selam doğasever! 🌱 Geleceğe nefes olacak ekibe dahil oldun. Çok yakında toprağa dokunacağımız, kampüsü yeşerteceğimiz etkinliklerde görüşmek üzere!",
-                    link: "https://chat.whatsapp.com/ornek-yesil-grubu"
-                },
-                askida: {
-                    title: "ASKIDA İYİLİĞE<br>HOŞ GELDİN!",
-                    color: "var(--kind-blue)",
-                    text: "Hoş geldin! 🤝 Paylaşmanın ve dayanışmanın merkezindesin. Küçük bir dokunuşla büyük farklar yaratacağımız projelerimiz için doğru yerdesin.",
-                    link: "https://chat.whatsapp.com/ornek-askida-grubu"
-                }
-            };
+            let content = "";
+            if(type === 'uyelik') {
+                content = `
+                    <h2 style="font-family:'Unbounded'; color:var(--gold); margin-bottom:20px;">ÜYELİK ŞARTLARI</h2>
+                    <p style="font-size:5vw; line-height:1.6; opacity:0.9;">
+                        • Kayıtlı tüm öğrenciler üye olabilir. <br>
+                        • Üyelik, aidat ödemesi ile kesinleşir. <br>
+                        • Mezunlar fahri üye olarak devam edebilirler. 
+                    </p>
+                `;
+            } else if(type === 'tuzuk') {
+                content = `
+                    <h2 style="font-family:'Unbounded'; color:var(--tech-purple); margin-bottom:20px;">ORGANLARIMIZ</h2>
+                    <div style="background:var(--glass-white); padding:20px; border-radius:20px;">
+                        <h4 style="color:var(--gold);">GENEL KURUL [cite: 24]</h4>
+                        <p>Kayıtlı tüm üyelerden oluşan en yetkili karar organıdır. </p>
+                        <br>
+                        <h4 style="color:var(--gold);">YÖNETİM KURULU [cite: 40]</h4>
+                        <p>Genel Kurulca seçilen 5 asil üyeden oluşur. </p>
+                    </div>
+                `;
+            } else if(type === 'iletisim') {
+                content = `
+                    <h2 style="font-family:'Unbounded'; color:var(--success-green); margin-bottom:20px;">BİZE KATIL</h2>
+                    <p style="font-size:5vw; margin-bottom:30px;">İyiliğin geleceğini birlikte inşa edelim.</p>
+                    <a href="#" class="btn-main" style="width:100%; justify-content:center;">BAŞVURU FORMUNU AÇ</a>
+                `;
+            }
 
-            const selected = data[team];
-            content.innerHTML = `
-                <h2 style="font-family:'Unbounded'; font-size:12vw; color:${selected.color}; line-height:1; margin-bottom:30px;">${selected.title}</h2>
-                <p style="font-size:6vw; line-height:1.5; opacity:0.9; margin-bottom:40px;">${selected.text}</p>
-                <div style="background:var(--glass-white); padding:30px; border-radius:30px; margin-bottom:40px;">
-                    <h4 style="color:var(--gold); font-size:5vw; margin-bottom:10px;">NASIL ÇALIŞIRIZ?</h4>
-                    <ul style="font-size:4.5vw; list-style:none; opacity:0.7;">
-                        <li style="margin-bottom:10px;">• Haftalık saha görevleri</li>
-                        <li style="margin-bottom:10px;">• Ortak karar mekanizması</li>
-                        <li>• Sınırsız dayanışma</li>
-                    </ul>
-                </div>
-                <a href="${selected.link}" target="_blank" class="action-btn" style="background:${selected.color}; color:white;">
-                    WHATSAPP GRUBUNA KATIL
-                </a>
-                <p style="text-align:center; margin-top:30px; font-size:3.5vw; opacity:0.5;">Harekete geçmek için butona tıkla.</p>
-            `;
+            body.innerHTML = content;
         }
 
-        function closeModal() {
-            document.getElementById('team-modal').style.display = 'none';
-        }
-
-        // Dokunmatik Geri Bildirim
-        document.addEventListener('touchstart', () => {
-            if (navigator.vibrate) navigator.vibrate(5);
-        }, false);
-    </script>
+        function closeModal() { document.getElementById('data-modal').style.display = 'none'; }
+    </nav>
 </body>
 </html>
