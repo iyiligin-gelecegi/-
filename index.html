@@ -15,199 +15,252 @@
             --space-black: #05050b;
             --tech-purple: #a29bfe;
             --gold: #f1c40f;
-            --action-blue: #0984e3;
-            --success-green: #00b894;
+            --cyan: #00cec9;
+            --pink: #ff7675;
             --glass-white: rgba(255, 255, 255, 0.07);
-            --f-hero: 10vw;
-            --f-title: 8vw;
-            --f-body: 4.5vw;
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+            
+            /* DEVASA PUNTO SİSTEMİ */
+            --f-hero: 12vw;
+            --f-title: 9vw;
+            --f-body: 5vw;
+            --f-button: 4.5vw;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--space-black); color: #fff; font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+        body { 
+            background-color: var(--space-black); color: #fff; font-family: 'Outfit', sans-serif; 
+            overflow-x: hidden; width: 100vw;
+            background-image: radial-gradient(circle at 5% 5%, rgba(162, 155, 254, 0.15) 0%, transparent 30%);
+        }
 
-        /* --- SPLASH SCREEN --- */
+        /* --- PORTAL GİRİŞİ --- */
         #entry-portal {
             position: fixed; inset: 0; background: var(--space-black); z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 1.2s ease;
+            transition: all 1s cubic-bezier(0.9, 0, 0.1, 1);
         }
-        .portal-circle {
-            width: 150px; height: 150px; border: 3px solid var(--tech-purple);
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            animation: rotate 8s linear infinite;
+        .portal-core {
+            width: 200px; height: 200px; border: 2px solid var(--tech-purple);
+            border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+            display: flex; justify-content: center; align-items: center;
+            animation: morph 8s linear infinite; position: relative;
         }
-        @keyframes rotate { 100% { transform: rotate(360deg); } }
-        .portal-text { margin-top: 30px; font-family: 'Unbounded'; color: var(--tech-purple); text-align: center; font-size: 4vw; letter-spacing: 3px; }
+        @keyframes morph {
+            0% { border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%; transform: rotate(0deg); }
+            50% { border-radius: 50% 50% 20% 80% / 20% 80% 20% 80%; }
+            100% { border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%; transform: rotate(360deg); }
+        }
+        .portal-text { margin-top: 40px; font-family: 'Unbounded'; font-size: 4.5vw; color: var(--tech-purple); letter-spacing: 5px; text-align: center; }
 
-        /* --- APP STRUCTURE --- */
+        /* --- ANA YAPI --- */
+        .main-app { display: none; padding-bottom: 120px; }
+
         header {
-            padding: 50px 25px 20px; position: sticky; top: 0; z-index: 1000;
-            background: rgba(5, 5, 11, 0.85); backdrop-filter: blur(20px);
+            padding: calc(40px + var(--safe-top)) 25px 20px;
             display: flex; align-items: center; gap: 15px;
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(5, 5, 11, 0.9); backdrop-filter: blur(20px);
         }
-        .logo-box { width: 50px; height: 50px; background: var(--tech-purple); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; }
-        
-        .hero { padding: 40px 25px; }
-        .hero h2 { font-family: 'Unbounded'; font-size: var(--f-hero); line-height: 1; margin-bottom: 20px; background: linear-gradient(to right, #fff, var(--tech-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: var(--f-body); opacity: 0.8; border-left: 4px solid var(--tech-purple); padding-left: 15px; }
-
-        .section-title { padding: 20px 25px; font-family: 'Syncopate'; font-size: 4vw; color: var(--gold); }
-
-        /* --- KARTLAR --- */
-        .grid-container { padding: 0 20px; display: grid; gap: 25px; }
-        .info-card { 
-            padding: 30px; border-radius: 35px; background: var(--glass-white); 
-            border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
+        .logo-square {
+            width: 60px; height: 60px; background: var(--tech-purple);
+            border-radius: 18px; display: flex; align-items: center; justify-content: center;
+            font-family: 'Unbounded'; font-weight: 900; color: #000; font-size: 6vw;
         }
-        .info-card i { font-size: 10vw; color: var(--tech-purple); margin-bottom: 20px; }
-        .info-card h3 { font-family: 'Unbounded'; font-size: 6vw; margin-bottom: 10px; }
-        .info-card p { font-size: 4vw; opacity: 0.7; line-height: 1.4; }
 
-        .btn-main { 
-            margin-top: 20px; display: inline-flex; align-items: center; gap: 10px;
-            padding: 15px 25px; background: #fff; color: #000; border-radius: 20px;
-            text-decoration: none; font-weight: 800; font-size: 3.5vw; text-transform: uppercase;
+        .hero-section { padding: 40px 25px; }
+        .hero-section h2 { 
+            font-family: 'Unbounded'; font-size: var(--f-hero); line-height: 0.9; 
+            margin-bottom: 25px; letter-spacing: -2px;
         }
+        .hero-section p { 
+            font-size: var(--f-body); opacity: 0.8; line-height: 1.4;
+            border-left: 10px solid var(--tech-purple); padding-left: 20px;
+        }
+
+        /* --- KART SİSTEMİ (TÜZÜK ODAKLI) --- */
+        .grid-system { padding: 0 20px; display: grid; gap: 30px; }
+        .tech-card {
+            background: var(--glass-white); border-radius: 45px; padding: 40px 30px;
+            border: 1px solid rgba(255,255,255,0.1); position: relative; overflow: hidden;
+        }
+        .tech-card i { font-size: 14vw; margin-bottom: 25px; display: block; color: var(--card-color); }
+        .tech-card h3 { font-family: 'Unbounded'; font-size: var(--f-title); line-height: 1; margin-bottom: 15px; }
+        .tech-card p { font-size: 4.5vw; opacity: 0.7; margin-bottom: 30px; }
+
+        .btn-action {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 22px; border-radius: 25px; background: #fff; color: #000;
+            text-decoration: none; font-weight: 900; font-size: var(--f-button);
+            transition: 0.3s;
+        }
+
+        /* --- RENK KATMANLARI --- */
+        .ar-ge { --card-color: var(--cyan); }
+        .social { --card-color: var(--pink); }
+        .future { --card-color: var(--gold); }
+
+        /* --- CANLI İSTATİSTİK --- */
+        .stats-row { margin: 40px 20px; display: flex; gap: 15px; }
+        .stat-item {
+            flex: 1; background: var(--glass-white); padding: 25px;
+            border-radius: 30px; text-align: center; border-bottom: 5px solid var(--tech-purple);
+        }
+        .stat-item h4 { font-family: 'Unbounded'; font-size: 8vw; margin-bottom: 5px; }
+        .stat-item span { font-size: 3vw; opacity: 0.5; font-weight: 800; text-transform: uppercase; }
+
+        /* --- NAVİGASYON --- */
+        .nav-dock {
+            position: fixed; bottom: 25px; left: 20px; right: 20px;
+            height: 85px; background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(30px); border-radius: 30px;
+            display: flex; justify-content: space-around; align-items: center;
+            border: 1px solid rgba(255,255,255,0.2); z-index: 2000;
+        }
+        .nav-btn { color: #fff; text-decoration: none; text-align: center; opacity: 0.5; transition: 0.3s; }
+        .nav-btn.active { opacity: 1; color: var(--tech-purple); }
+        .nav-btn i { font-size: 7vw; display: block; }
+        .nav-btn span { font-size: 2.5vw; font-weight: 700; }
 
         /* --- MODAL --- */
-        #data-modal {
-            position: fixed; inset: 0; background: var(--space-black); z-index: 5000;
-            display: none; padding: 60px 25px; overflow-y: auto;
+        #details-modal {
+            position: fixed; inset: 0; background: var(--space-black);
+            z-index: 5000; display: none; padding: 60px 25px; overflow-y: auto;
         }
-        .close-btn { position: absolute; top: 20px; right: 20px; font-size: 8vw; color: var(--gold); }
-
-        .nav-bar {
-            position: fixed; bottom: 0; width: 100%; height: 80px;
-            background: rgba(5,5,11,0.95); display: flex; justify-content: space-around; align-items: center;
-            border-top: 1px solid var(--glass-white);
-        }
-        .nav-item { color: #666; text-decoration: none; text-align: center; font-size: 3vw; font-weight: 700; }
-        .nav-item.active { color: var(--tech-purple); }
-        .nav-item i { display: block; font-size: 6vw; margin-bottom: 5px; }
+        .close-modal { font-size: 10vw; color: var(--tech-purple); margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
     <div id="entry-portal">
-        <div class="portal-circle"><i class="fa-solid fa-microchip" style="font-size: 50px; color: var(--tech-purple);"></i></div>
-        <div class="portal-text">İYİLİĞİN GELECEĞİ<br>YÜKLENİYOR...</div>
+        <div class="portal-core">
+            <i class="fa-solid fa-atom" style="font-size: 80px; color: var(--tech-purple);"></i>
+        </div>
+        <div class="portal-text">İYİLİĞİN GELECEĞİ<br><span style="font-size: 3vw; opacity: 0.6;">DİJİTAL TÜZÜK AKTİFLEŞTİRİLİYOR</span></div>
     </div>
 
-    <div id="main-app" style="display: none; padding-bottom: 100px;">
+    <div class="main-app" id="app-content">
         <header>
-            <div class="logo-box">İG</div>
-            <div>
-                <h1 style="font-size: 4.5vw; font-family: 'Syncopate';">İYİLİĞİN GELECEĞİ</h1>
-                <span style="font-size: 3vw; color: var(--gold); font-weight: 800;">ÇUKUROVA ÜNİVERSİTESİ</span>
+            <div class="logo-square">İG</div>
+            <div class="brand-text">
+                <h1 style="font-family:'Syncopate'; font-size: 4.5vw;">İYİLİĞİN GELECEĞİ</h1>
+                <span style="color: var(--gold); font-size: 3.5vw; font-weight: 900;">ÇUKUROVA ÜNİVERSİTESİ</span>
             </div>
         </header>
 
-        <section class="hero" data-aos="fade-up">
-            <h2>TEKNOLOJİ İLE<br>DEĞİŞİM.</h2>
-            <p>Çukurova Üniversitesi bünyesinde, teknolojiyi sosyal etki aracı olarak kullanarak toplumsal sorunlara yenilikçi çözümler üretiyoruz. [cite: 5]</p>
+        <section class="hero-section" data-aos="fade-up">
+            <h2>GELECEK<br><span style="color: var(--tech-purple);">BURADA</span> BAŞLAR.</h2>
+            <p>Tüzüğümüzün 1. maddesinde söz verdiğimiz gibi: Teknolojiyi sosyal etki için kullanıyor, kampüsü dönüştürüyoruz.</p>
         </section>
 
-        <div class="section-title">FAALİYET ALANLARIMIZ [cite: 6]</div>
-        <div class="grid-container">
-            <div class="info-card" data-aos="fade-right">
-                <i class="fa-solid fa-code-branch"></i>
-                <h3>Teknoloji & AR-GE</h3>
-                <p>Ulusal ve uluslararası teknoloji yarışmaları için projeler hazırlıyor, yenilikçi atölyeler düzenliyoruz. [cite: 11, 13]</p>
+        <div class="grid-system">
+            <div class="tech-card ar-ge" data-aos="fade-right">
+                <i class="fa-solid fa-microchip"></i>
+                <h3>AR-GE & TEKNOLOJİ</h3>
+                <p>TEKNOFEST ve uluslararası yarışmalar için yenilikçi projeler geliştiriyoruz. Kodla, tasarla, dünyayı değiştir.</p>
+                <a href="javascript:void(0)" class="btn-action" onclick="showMeta('arge')">PROJELERE BAK <i class="fa-solid fa-terminal"></i></a>
             </div>
 
-            <div class="info-card" data-aos="fade-left">
-                <i class="fa-solid fa-earth-americas"></i>
-                <h3>Sosyal Etki</h3>
-                <p>Toplumsal duyarlılık ve dayanışma projeleri ile kampüsümüzde sürdürülebilir bir gelecek inşa ediyoruz. [cite: 8, 12]</p>
+            <div class="tech-card social" data-aos="fade-left">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <h3>SOSYAL ETKİ</h3>
+                <p>İyiliği teknolojiyle ölçeklendiriyoruz. Dayanışma projelerimizle toplumsal sorunlara dijital çözümler sunuyoruz.</p>
+                <a href="javascript:void(0)" class="btn-action" onclick="showMeta('sosyal')">AKSİYON AL <i class="fa-solid fa-fire-pulse"></i></a>
+            </div>
+
+            <div class="tech-card future" data-aos="fade-up">
+                <i class="fa-solid fa-clover"></i>
+                <h3>SÜRDÜRÜLEBİLİRLİK</h3>
+                <p>Kampüsümüzü daha yeşil ve akıllı hale getirmek için sürdürülebilir gelecek uygulamaları geliştiriyoruz.</p>
+                <a href="javascript:void(0)" class="btn-action" onclick="showMeta('ekoloji')">KEŞFET <i class="fa-solid fa-leaf"></i></a>
             </div>
         </div>
 
-        <div class="section-title">KULÜP ÜYELİĞİ</div>
-        <div class="grid-container">
-            <div class="info-card" style="border-left: 10px solid var(--gold);">
-                <h3>KİM OLABİLİR?</h3>
-                <p>Üniversitemize kayıtlı tüm ön lisans, lisans ve lisansüstü öğrencileri ailemize katılabilir. </p>
-                <a href="javascript:void(0)" class="btn-main" onclick="openInfo('uyelik')">DETAYLARI GÖR <i class="fa-solid fa-chevron-right"></i></a>
+        <div class="stats-row">
+            <div class="stat-item" data-aos="zoom-in">
+                <h4>5</h4>
+                <span>YÖNETİM KURULU</span>
+            </div>
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                <h4>∞</h4>
+                <span>HAYAL GÜCÜ</span>
             </div>
         </div>
 
-        <div class="section-title">YÖNETİM YAPISI [cite: 18]</div>
-        <div class="grid-container" style="grid-template-columns: 1fr 1fr;">
-            <div class="info-card" style="text-align: center;">
-                <h4 style="font-size: 8vw; color: var(--gold);">5</h4>
-                <span>YÖNETİM KURULU ASİL ÜYE </span>
-            </div>
-            <div class="info-card" style="text-align: center;">
-                <h4 style="font-size: 8vw; color: var(--gold);">2</h4>
-                <span>DENETLEME KURULU ASİL ÜYE </span>
-            </div>
+        <div style="padding: 60px 25px; text-align: center; opacity: 0.3; font-family: 'Syncopate'; font-size: 3vw;">
+            İYİLİĞİN GELECEĞİ • 2024 • ADANA
         </div>
     </div>
 
-    <div id="data-modal">
-        <div class="close-btn" onclick="closeModal()"><i class="fa-solid fa-circle-xmark"></i></div>
-        <div id="modal-body"></div>
+    <div id="details-modal">
+        <div class="close-modal" onclick="closeM()"><i class="fa-solid fa-circle-chevron-down"></i></div>
+        <div id="m-content"></div>
     </div>
 
-    <nav class="nav-bar">
-        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i>ANASAYFA</a>
-        <a href="javascript:void(0)" onclick="openInfo('tuzuk')" class="nav-item"><i class="fa-solid fa-file-contract"></i>TÜZÜK</a>
-        <a href="javascript:void(0)" onclick="openInfo('iletisim')" class="nav-item"><i class="fa-solid fa-paper-plane"></i>KATIL</a>
+    <nav class="nav-dock">
+        <a href="#" class="nav-btn active"><i class="fa-solid fa-house-chimney-window"></i><span>ANA SAYFA</span></a>
+        <a href="javascript:void(0)" onclick="showMeta('uyelik')" class="nav-btn"><i class="fa-solid fa-user-plus"></i><span>ÜYE OL</span></a>
+        <a href="javascript:void(0)" onclick="showMeta('tuzuk')" class="nav-btn"><i class="fa-solid fa-file-shield"></i><span>TÜZÜK</span></a>
     </nav>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
+        AOS.init({ duration: 1000, once: true });
 
         window.addEventListener('load', () => {
             setTimeout(() => {
-                document.getElementById('entry-portal').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('entry-portal').style.display = 'none';
-                    document.getElementById('main-app').style.display = 'block';
+                const p = document.getElementById('entry-portal');
+                p.style.transform = 'translateY(-100%)';
+                p.style.opacity = '0';
+                setTimeout(() => { 
+                    p.style.display = 'none';
+                    document.getElementById('app-content').style.display = 'block';
                 }, 1000);
-            }, 2000);
+            }, 2500);
         });
 
-        function openInfo(type) {
-            const modal = document.getElementById('data-modal');
-            const body = document.getElementById('modal-body');
-            modal.style.display = 'block';
+        function showMeta(key) {
+            const m = document.getElementById('details-modal');
+            const c = document.getElementById('m-content');
+            m.style.display = 'block';
 
-            let content = "";
-            if(type === 'uyelik') {
-                content = `
-                    <h2 style="font-family:'Unbounded'; color:var(--gold); margin-bottom:20px;">ÜYELİK ŞARTLARI</h2>
-                    <p style="font-size:5vw; line-height:1.6; opacity:0.9;">
-                        • Kayıtlı tüm öğrenciler üye olabilir. <br>
-                        • Üyelik, aidat ödemesi ile kesinleşir. <br>
-                        • Mezunlar fahri üye olarak devam edebilirler. 
-                    </p>
-                `;
-            } else if(type === 'tuzuk') {
-                content = `
-                    <h2 style="font-family:'Unbounded'; color:var(--tech-purple); margin-bottom:20px;">ORGANLARIMIZ</h2>
-                    <div style="background:var(--glass-white); padding:20px; border-radius:20px;">
-                        <h4 style="color:var(--gold);">GENEL KURUL [cite: 24]</h4>
-                        <p>Kayıtlı tüm üyelerden oluşan en yetkili karar organıdır. </p>
-                        <br>
-                        <h4 style="color:var(--gold);">YÖNETİM KURULU [cite: 40]</h4>
-                        <p>Genel Kurulca seçilen 5 asil üyeden oluşur. </p>
-                    </div>
-                `;
-            } else if(type === 'iletisim') {
-                content = `
-                    <h2 style="font-family:'Unbounded'; color:var(--success-green); margin-bottom:20px;">BİZE KATIL</h2>
-                    <p style="font-size:5vw; margin-bottom:30px;">İyiliğin geleceğini birlikte inşa edelim.</p>
-                    <a href="#" class="btn-main" style="width:100%; justify-content:center;">BAŞVURU FORMUNU AÇ</a>
-                `;
-            }
+            const vault = {
+                arge: {
+                    t: "AR-GE LABORATUVARI",
+                    d: "Tüzük Madde 2.4: Ulusal ve uluslararası teknoloji yarışmaları (TEKNOFEST vb.) için ekipler kuruyor ve prototip geliştiriyoruz.",
+                    b: "EKİBE KATIL"
+                },
+                sosyal: {
+                    t: "SOSYAL İNOVASYON",
+                    d: "Tüzük Madde 2.1: Toplumsal duyarlılık projeleriyle sadece yardım etmiyor, çözüm üretiyoruz.",
+                    b: "GÖNÜLLÜ OL"
+                },
+                uyelik: {
+                    t: "ÜYELİK SİSTEMİ",
+                    d: "Madde 3: Çukurova Üniversitesi'ne kayıtlı tüm öğrenciler üye olabilir. Üyelik, aidat ödemesi ile kesinleşir.",
+                    b: "BAŞVURUYU BAŞLAT"
+                },
+                tuzuk: {
+                    t: "RESMİ TÜZÜK",
+                    d: "Kulübümüz Çukurova Üniversitesi Sağlık Kültür ve Spor Daire Başkanlığı'na bağlı resmi bir öğrenci topluluğudur.",
+                    b: "TAMAMINI OKU"
+                }
+            };
 
-            body.innerHTML = content;
+            const s = vault[key] || vault.arge;
+            c.innerHTML = `
+                <h2 style="font-family:'Unbounded'; font-size:10vw; margin-bottom:20px; color:var(--tech-purple);">${s.t}</h2>
+                <p style="font-size:6vw; line-height:1.5; opacity:0.8; margin-bottom:40px;">${s.d}</p>
+                <div style="padding:30px; border-radius:30px; background:var(--glass-white); margin-bottom:40px;">
+                    <h5 style="color:var(--gold); margin-bottom:10px;">KRİTİK BİLGİ</h5>
+                    <p style="font-size:4vw;">Bu faaliyet alanı Genel Kurul tarafından onaylanmış resmi çalışma birimidir.</p>
+                </div>
+                <a href="#" class="btn-action" style="background:var(--tech-purple); color:#000;">${s.b}</a>
+            `;
         }
 
-        function closeModal() { document.getElementById('data-modal').style.display = 'none'; }
-    </nav>
+        function closeM() { document.getElementById('details-modal').style.display = 'none'; }
+    </script>
 </body>
 </html>
